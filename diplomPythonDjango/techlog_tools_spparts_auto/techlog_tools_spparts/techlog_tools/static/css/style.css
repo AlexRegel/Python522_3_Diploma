@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: "Roboto", sans-serif;
+    padding: 0;
+    margin: 0;
+    background: #CCFFCC;
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom: 60px;
+}
+
+.element,
+.counter {
+    background: lightcyan;
+    border: 6px solid white;
+    margin: 30px 0;
+}
+
+.text {
+    width: 360px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.block img {
+    max-width: 360px;
+    height: auto;
+    max-height: 250px;
+}
+
+.content h1 {
+    text-align: center;
+    margin: 50px 0 40px;
+}
+
+.img+h2,
+.text+h2 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+}
+
+.img {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.img img {
+    border: 6px solid #CCFFCC;
+}
+
+.top {
+    background: #161066;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.top a {
+    color: #CCFFCC;
+    text-decoration: none;
+    padding: 12px;
+    display: block;
+}
+
+.idtions {
+    background: #CCFFCC;
+    padding: 20px 10px 50px;
+}
+
+.stady_text {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none;
+    font-size: 20px;
+}
+
+.menu li {
+    margin-left: 40px;
+}
+
+.menu .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    background: #CCFFFF;
+    padding: 15px;
+    border-bottom: 8px solid white;
+}
+
+.count {
+    padding: 8px 8px;
+    box-sizing: border-box;
+    background-color: aliceblue;    
+}
+
+.menu a{
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a img{
+    width: 110px;
+    height: 90px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%; /* Создает круг */
+    overflow: hidden;
+}
+
+.auth{
+    border: none;
+}
+
+/* #CCFFFF    #161066    navy */
+.top {
+    background: #161066;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.exit{
+    background: transparent;
+    border: none;
+    
+    font-size: 20px;
+    cursor: pointer;
+}

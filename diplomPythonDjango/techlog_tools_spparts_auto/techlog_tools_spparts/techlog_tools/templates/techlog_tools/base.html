@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="menu">
+    <div class="wrap">
+        <ul>
+            {% if user.is_authenticated %}
+                <li class="logo">Пользователь: {{ user.username }}</li>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li>
+                    <form action="{% url 'exitappuser' %}" method="post">
+                        {% csrf_token %}
+                        <button class="exit">Выход</button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'registruser' %}">Зарегистрироваться</a></li>
+                <li><a href="{% url 'loginuser' %}">Войти</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+    <div class="wrap">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+</body>
+</html>

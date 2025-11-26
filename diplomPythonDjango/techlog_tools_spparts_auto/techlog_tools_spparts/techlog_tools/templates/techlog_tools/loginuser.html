@@ -1,0 +1,14 @@
+{% extends 'techlog_tools/base.html' %}
+
+{% block content %}
+
+<h3>{{ error }}</h3>
+
+<h1>Авторизация</h1>
+<form method="post" class="register">
+    {% csrf_token %}
+    {{ form }}
+    <button class="btn">Авторизация</button>
+</form>
+
+{% endblock %}
