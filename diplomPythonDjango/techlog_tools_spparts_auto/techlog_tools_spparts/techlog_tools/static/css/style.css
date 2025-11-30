@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+
 body {
     font-family: "Roboto", sans-serif;
     padding: 0;
@@ -7,7 +8,7 @@ body {
     background: #CCFFCC;
 }
 
-.wrap {
+.wrap {    
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -45,21 +46,22 @@ body {
     margin: 50px 0 40px;
 }
 
-.img+h2,
+.img+h3,
 .text+h2 {
     text-align: center;
-    margin: 20px 0;
-    font-size: 30px;
+    margin: 15px 0;
+    font-size: 20px;
 }
 
 .img {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 45px;
 }
 
 .img img {
-    border: 6px solid #CCFFCC;
+    border: 8px solid blue;
 }
+/* #CCFFCC */
 
 .top {
     background: #161066;
@@ -87,10 +89,11 @@ body {
 }
 
 .menu ul {
-    display: flex;
+    display: flex;    
     list-style: none;
     font-size: 20px;
 }
+
 
 .menu li {
     margin-left: 40px;
@@ -100,9 +103,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;    
 }
 
+/* рабочий элемент */
 .menu {
     background: #CCFFFF;
     padding: 15px;
@@ -112,7 +116,8 @@ body {
 .count {
     padding: 8px 8px;
     box-sizing: border-box;
-    background-color: aliceblue;    
+    background-color: aliceblue;
+    text-align: justify;
 }
 
 .menu a{
@@ -149,4 +154,10 @@ a img{
     
     font-size: 20px;
     cursor: pointer;
+}
+
+h1, h3 {
+    color: #04450a;
+    text-align: center;
+    background-color: #CCFFCC;
 }

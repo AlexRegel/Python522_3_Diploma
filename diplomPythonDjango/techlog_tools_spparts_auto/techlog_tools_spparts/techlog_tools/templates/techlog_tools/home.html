@@ -1,9 +1,23 @@
 {% extends 'techlog_tools/base.html' %}
-
+{% load static %}
 {% block content %}
 
 <!--    <h2>Home page</h2>-->
     <h1>Технический учёт инструментов и запчастей (техники)</h1>
-<h3 class="count">Сайт представляет из себя Каталог-приложение с базой инструмента, запчастей (техники) ... </h3>
+<div class="img">
+    <img src="{% static 'techlog_tools/LineOfTools_1.png' %}" alt="">
+</div>
+<h3 class="count">Сайт представляет из себя Каталог-приложение с базой инструмента, запчастей (техники). Ниже представлены некоторые достаточно распространённые инструменты с возможностью их заказа в интернет-магазине.</h3>
+<div class="block">
+    {% for tool in tools %}
+    <div class="element">
+        <div><img src="{{ tool.image.url }}" alt=""></div>
+        <div class="text">
+            <h4><a href="{{ tool.url }}" target="_blank">{{ tool.title }}</a></h4>
+            <p>{{ tool.description }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
