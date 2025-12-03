@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from techlog_tools import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -27,8 +27,11 @@ urlpatterns = [
     path('registr/', views.registr_user, name='registruser'),
     path('exitapp/', views.exitapp_user, name='exitappuser'),
     path('loginapp/', views.login_user, name='loginuser'),
+    # include urls
+    path('techlog_tools/', include('techlog_tools.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# print('Вывод urlpatterns:  ', urlpatterns)
+# print('Вывод содержимого переменной
+# "urlpatterns":  ', urlpatterns)

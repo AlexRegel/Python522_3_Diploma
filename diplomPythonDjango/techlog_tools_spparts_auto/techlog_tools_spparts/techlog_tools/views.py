@@ -2,7 +2,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # from django.http import HttpResponse
-from .models import TechlogTools
+from .models import TechlogTools, TechlogTools2
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 
@@ -13,6 +13,7 @@ def home(request):  # По умолчанию используется мето�
     return render(request, "techlog_tools/home.html", {'tools': tools})
 
 
+# Страница регистрации
 def registr_user(request):
     if request.method == "GET":
         return render(request, 'techlog_tools/registration.html', {'form': UserCreationForm()})
@@ -32,12 +33,14 @@ def registr_user(request):
                           {'form': UserCreationForm(), 'error': 'Пароли не совпадают'})
 
 
+# Функция выхода (переводит на главную стр.)
 def exitapp_user(request):
     if request.method == "POST":
         logout(request)
         return redirect('home')
 
 
+# Функция входа (авторизированного пользователя)
 def login_user(request):
     if request.method == "GET":
         return render(request, 'techlog_tools/loginuser.html', {'form': AuthenticationForm()})
@@ -49,3 +52,11 @@ def login_user(request):
         else:
             login(request, user)
             return redirect('home')
+
+
+# Функция страницы запчастей
+def techlog_tools(request):
+    tltools2 = TechlogTools2.objects.all()
+    return render(request, 'techlog_tools/techtools.html', {
+        'tltools2': tltools2,
+    })
