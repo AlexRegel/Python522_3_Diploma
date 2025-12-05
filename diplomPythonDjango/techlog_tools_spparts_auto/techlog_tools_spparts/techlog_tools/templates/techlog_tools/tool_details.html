@@ -1,0 +1,17 @@
+{% extends 'techlog_tools/base.html' %}
+{% load static %}
+{% block content %}
+<div class="tool_details">
+    <h3>{{ tool.title }}</h3>
+    <div class="tltool2_text2">
+        <p>{{ tool.description|safe }}</p>
+        <div class="info-footer">
+            Внешний вид инструмента представлен на фото ниже.
+        </div>
+    </div>
+    <!--|safe -дляОбработки html-разметки,ЕслиОна есть  -->
+    <h5>Дата внесения в базу: ---{{ tool.date|date:'j E Y' }} г.---</h5>
+    <a href="{{ tool.url }}" target="_blank">При необходимости заказа данного инструмента, нажмите здесь</a>
+    <img src="{{ tool.image.url }}" alt="">
+</div>
+{% endblock %}

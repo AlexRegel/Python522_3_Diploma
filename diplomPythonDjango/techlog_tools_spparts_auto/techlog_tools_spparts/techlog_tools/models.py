@@ -22,3 +22,6 @@ class TechlogTools2(models.Model):
     # (в админке) выведем:
     def __str__(self):
         return self.title
+        # Возможно вывести дату любым способом:
+        # return str(self.date)
+        # return f"{self.date}", но до миграций

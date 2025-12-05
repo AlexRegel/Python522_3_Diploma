@@ -85,9 +85,45 @@ body {
 }
 
 .tltool2_text {
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    /* Центрируем по вертикали (опционально) */
+    gap: 20px;
+    /* Отступ между картинкой и текстом */
+    padding: 5px;
     box-sizing: border-box;
-    font-size: 13px;
+    font-size: 14px;
+    text-align: justify;
+    position: relative;
+}
+
+.tltool2_text p {
+    padding-right: 8px;
+    margin: 0;
+}
+
+.tltool2_text2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Распределяет пространство */
+    min-height: 100px;
+    /* Пример, чтобы было видно */
+    border: 1px solid #ccc;
+    padding: 0 8px;
+    text-align: justify;
+    position: relative;
+    /* Для позиционирования футера */
+}
+
+.info-footer {
+    /* Flexbox не отрабатывает */
+    margin-top: 5px;
+    padding: 0;
+    /* Отступ от основного текста */
+    font-size: 0.9em;
+    color: rgb(110, 22, 22);
+    text-align: left;    
 }
 
 .menu ul {
@@ -117,9 +153,11 @@ body {
 
 .count {
     padding: 8px 8px;
+    margin-bottom: 0;
     box-sizing: border-box;
     background-color: aliceblue;
     text-align: justify;
+    font-size: 15px;
 }
 
 .menu a {
@@ -154,7 +192,6 @@ a img {
 .exit {
     background: transparent;
     border: none;
-
     font-size: 20px;
     cursor: pointer;
 }
@@ -164,4 +201,53 @@ h3 {
     color: #04450a;
     text-align: center;
     background-color: #CCFFCC;
+}
+
+.top2 a {
+    background: #e2e1ed;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 0;
+}
+
+h5 {
+    font-size: 13px;
+    /* font-style: ; */
+    text-decoration: underline;
+    margin: 15px 5px 20px;
+}
+
+.tool_details a {
+    font-size: 18px;
+    text-decoration: overline;
+    color: blue;
+    margin-top: 20px;
+    padding-top: 20px;
+    /* a:visited {color: red}; */
+}
+
+/* Посещенная ссылка */
+.tool_details img {
+    padding-top: 10px;
+}
+
+.ul_details {
+    margin: 0 10px;
+    padding: 0 20px;
+}
+
+span b {
+    font-weight: 500;
+}
+
+.element h2 {
+    margin: 0 10px;
+    padding: 0;
+}
+
+.tltool2_text img {
+    max-width: 70px;
+    height: auto;
 }

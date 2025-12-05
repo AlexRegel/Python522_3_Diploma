@@ -1,5 +1,5 @@
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # from django.http import HttpResponse
 from .models import TechlogTools, TechlogTools2
@@ -56,7 +56,15 @@ def login_user(request):
 
 # Функция страницы запчастей
 def techlog_tools(request):
-    tltools2 = TechlogTools2.objects.all()
+    # Отсортируем по дате, для вывода последних сверху
+    tltools2 = TechlogTools2.objects.order_by('-date')  # all()
     return render(request, 'techlog_tools/techtools.html', {
         'tltools2': tltools2,
     })
+
+
+# techlog_tools
+def tool_details(request, techlog_tools_id):
+    tool = get_object_or_404(TechlogTools2, pk=techlog_tools_id)
+    return render(request, 'techlog_tools/tool_details.html',
+                  {'tool': tool})

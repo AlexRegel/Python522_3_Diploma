@@ -2,12 +2,26 @@
 
 {% block content %}
 
-<h2>Страница инструмента</h2>
+<h2>Страница инструмента.</h2>
+<h3 class="count">
+    На данный момент представлено {{ tltools2.count }} единиц(-а, -ы) инструмента. При нажатии на наименование
+    инструмента, будет представлена детализация: информация об инструменте, дата занесения в базу, фото и, при необходимости, ссылка для его заказа в интернет-магазине.
+</h3>
+<div class="count">
+    <span><b>Для поиска инструмента: </b></span>
+    <ul class="ul_details">
+        <li>Нажмите Ctrl + F, для вывода меню (выпадающего);</li>
+        <li>Введите размер (напр.: 32мм) и/или наименование инструмента (напр.: Gigant) и нажмите Enter.</li>
+    </ul>
+    <p></p>
+    <p></p>
+</div>
 
 {% for tltool2 in tltools2 %}
 <div class="element">
-    <h2 class="top">{{ tltool2.title }}</h2>
+    <h2 class="top2"><a href="{% url 'tool_details' tltool2.id %}">{{ tltool2.title }}</a></h2>
     <div class="tltool2_text">
+        <img src="{{ tltool2.image.url }}" alt="">
         <p>{{ tltool2.description|truncatechars:360 }}</p>
     </div>
 </div>
