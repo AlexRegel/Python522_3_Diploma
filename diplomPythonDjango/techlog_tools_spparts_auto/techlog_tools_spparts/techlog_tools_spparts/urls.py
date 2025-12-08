@@ -29,6 +29,7 @@ urlpatterns = [
     path('loginapp/', views.login_user, name='loginuser'),
     # include urls
     path('techlog_tools/', include('techlog_tools.urls')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

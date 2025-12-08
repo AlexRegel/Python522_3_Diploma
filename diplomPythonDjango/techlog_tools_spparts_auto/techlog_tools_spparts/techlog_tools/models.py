@@ -19,7 +19,7 @@ class TechlogTools2(models.Model):
     url = models.URLField(blank=True)  # Поле не обязательное для заполнения
 
     # Для строкового представления объекта
-    # (в админке) выведем:
+    # (в админке, например) выведем:
     def __str__(self):
         return self.title
         # Возможно вывести дату любым способом:

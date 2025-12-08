@@ -5,14 +5,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'techlog_tools/car-tools.png' %}">
 </head>
 <body>
 <div class="menu">
     <div class="wrap">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'techlog_tools/car-tools.png' %}" alt="">
+            </a>
+        </div>
         <ul>
             {% if user.is_authenticated %}
                 <li class="logo">Пользователь: {{ user.username }}</li>
                 <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'techlogtools' %}">Инструменты</a></li>
+                <!--для запчастей-->
                 <li>
                     <form action="{% url 'exitappuser' %}" method="post">
                         {% csrf_token %}
