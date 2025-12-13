@@ -1,0 +1,20 @@
+{% extends 'techlog_tools/base.html' %}
+
+{% block content %}
+
+<h2>Страница запчастей / расходников</h2>
+<h3 class="count">
+    На данный момент представлено {{ tspparts.count }} единиц(-а, -ы) наиболее востребованных запчастей (расходников).
+</h3>
+
+{% for tsppart in tspparts %}
+<div class="element">
+    <h2 class="top2">{{ tsppart.title }}</h2>
+    <div class="tltool2_text">
+        <img src="{{ tsppart.image.url }}" alt="">
+        <p>{{ tsppart.description|truncatechars:360 }}</p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -54,7 +54,7 @@ def login_user(request):
             return redirect('home')
 
 
-# Функция страницы запчастей
+# Функция страницы инструментов
 def techlog_tools(request):
     # Отсортируем по дате, для вывода последних сверху
     tltools2 = TechlogTools2.objects.order_by('-date')  # all()
