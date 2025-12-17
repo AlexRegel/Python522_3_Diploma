@@ -1,5 +1,5 @@
 {% extends 'techlog_tools/base.html' %}
-
+{% load static %}
 {% block content %}
 
 <h2>Страница запчастей / расходников</h2>
@@ -9,12 +9,13 @@
 
 {% for tsppart in tspparts %}
 <div class="element">
-    <h2 class="top2">{{ tsppart.title }}</h2>
+    <h2 class="top2"><a href="{% url 'sppart_details' tsppart.id %}">{{ tsppart.title }}</a></h2>
     <div class="tltool2_text">
         <img src="{{ tsppart.image.url }}" alt="">
-        <p>{{ tsppart.description|truncatechars:360 }}</p>
+        <p>{{ tsppart.description|truncatechars:360|safe }}</p>
     </div>
 </div>
+    <!--|striptags -дляСкрытия html-тегов без обработки,ЕслиОни есть  -->
 {% endfor %}
 
 {% endblock %}

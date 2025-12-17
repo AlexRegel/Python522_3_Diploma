@@ -27,6 +27,26 @@ body {
     background: lightcyan;
     border: 5px solid white;
     margin: 8px 0;
+    width: auto;
+    /* max-height: 200px; */
+}
+/* .limit ul {
+    display: flex;    
+    overflow: visible;
+} */
+/* зона обработки  */
+.limit {
+    display: flex;
+    flex-direction: column;
+    height: 140px; /* Ограничиваем высоту родителя */
+    overflow: hidden; /* Скрываем лишнее */
+}
+
+.limit ul {
+    flex-grow: 1; /* ul будет занимать всё доступное место */
+    overflow-y: auto; /* Прокрутка только для списка */
+    max-width: fit-content;
+    list-style: none;
 }
 
 .text {
@@ -219,7 +239,8 @@ h5 {
     margin: 15px 5px 20px;
 }
 
-.tool_details a {
+/* .tool_details */
+#zakaz a {
     font-size: 18px;
     text-decoration: overline;
     color: blue;
@@ -250,4 +271,23 @@ span b {
 .tltool2_text img {
     max-width: 70px;
     height: auto;
+}
+
+.blkphoto {
+    display: flex;
+    flex-direction: column;
+}
+.blkphoto img {
+    max-width: 500px;
+    height: auto;
+}
+
+.tltool2_text2 a {
+    text-decoration: underline; /* Стандартное подчёркивание */
+    color: #051006;
+    font-weight: 800;
+    text-decoration-color: rgb(255, 0, 0);  /* Цвет подчёркивания  */
+    /* text-decoration-thickness: 5px;  Толщина */
+    padding-top: 0;
+    padding-bottom: 15px;
 }

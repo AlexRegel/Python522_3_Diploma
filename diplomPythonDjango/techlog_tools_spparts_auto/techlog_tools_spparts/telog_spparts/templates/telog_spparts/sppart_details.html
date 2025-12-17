@@ -1,0 +1,24 @@
+{% extends 'techlog_tools/base.html' %}
+{% load static %}
+{% block content %}
+<div class="tool_details">
+    <h3>{{ sppart.title }}</h3>
+    <div class="tltool2_text2">
+        <p>{{ sppart.description|safe }}</p>
+        {% if sppart.instructions %}
+        <div style="margin-bottom: 0; color: red;">Внимание! Имеется инструкция по установке:</div>
+        <a href="{% static sppart.instructions %}" target="_blank" >Инструкция по установке</a>
+        {% endif %}
+<!--         <a href="{% static 'telog_spparts/instr_filtr_salonnyy.PDF' %}" target="_blank" >Инструкция по установке</a>-->
+        <div class="info-footer">
+            Внешний вид запчасти представлен на фото ниже.
+        </div>
+    </div>
+    <!--|safe -дляОбработки html-разметки,ЕслиОна есть  -->
+    <h5>Дата внесения в базу: ---{{ sppart.date|date:'j E Y' }} г.---</h5>
+    <div class="blkphoto" id="zakaz">
+        <a href="{{ sppart.url }}" target="_blank">При необходимости заказа данной запчасти, нажмите здесь</a>
+        <img src="{{ sppart.image.url }}" alt="">
+    </div>
+</div>
+{% endblock %}

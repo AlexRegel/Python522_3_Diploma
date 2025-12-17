@@ -12,6 +12,8 @@ class TelogSpparts(models.Model):
     product_code = models.CharField(max_length=70)  # код продукта
     date = models.DateField()  # Дата поступления в базу
     datetime = models.DateTimeField(null=True, blank=True)  # Дата/время установки на авто необ.
+    instructions = models.CharField(max_length=100, null=True,
+                                    blank=True)  # стат-ссылка, если есть инструкция (не обязательное для заполнения)
 
     # Код продукта, артикул или sku - Stock Keeping Unit (единица складского учета)
 
