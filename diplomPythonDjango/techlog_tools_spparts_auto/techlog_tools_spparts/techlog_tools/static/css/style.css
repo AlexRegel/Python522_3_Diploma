@@ -229,6 +229,8 @@ h3 {
     color: #04450a;
     text-align: center;
     background-color: #CCFFCC;
+    /* height: 25px;
+    width: 250px; */
 }
 
 .top2 a {
@@ -305,18 +307,15 @@ span b {
 
 /* для div класса .wrap, у которого потомок класса .loginuser */
 .wrap:has(.loginuser) {
-    display: flow-root;    
+    display: flow-root;
     /* Центрирование по горизонтали */
     justify-items: center;
     /* Центрирование по вертикали */
     align-items: center;
+    padding: 10px;
+    /* width: 1000px; */
 }
 
-/* .register {
-    box-shadow: 0 2px 12px 2px #04450a;
-    padding: 40px;
-    border-radius: 6px;
-} */
 .loginuser {
     box-shadow: 0 2px 12px 2px #04450a;
     padding: 40px;
@@ -325,10 +324,6 @@ span b {
     font-weight: bold;
 }
 
-/* .register div {
-    margin-bottom: 20px;
-    margin: 20px 90px;
-} */
 .loginuser div {
     /* margin-bottom: 20px; */
     /* margin: 20px 90px; */
@@ -353,15 +348,15 @@ span b {
     /* Центрирование по горизонтали (вместо 2-х атриб-в ниже): */
     place-items: center;
     align-content: center;
-    gap: 8px; /* - расстояние между строками */
+    gap: 8px;
+    /* - расстояние между строками */
     /* padding: 10px; */
-    width: 100%;
-    height: 100%
-    
+    width: 90%;
+    height: 90%
 }
 
 /* Выбирает div, внутри которого есть input и label */
-.loginuser > div {
+.loginuser>div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -380,7 +375,7 @@ span b {
 label[for="id_password"]+input#id_password {
     position: absolute;
     display: block;
-    font-size: 16px;    
+    font-size: 16px;
     margin: 13px 0 5px 150px;
     cursor: pointer;
     /* place-items: center; */
@@ -391,6 +386,7 @@ label[for="id_password"]+input#id_password {
     border: 1px solid #2200ff;
     border-radius: 4px;
 }
+
 /* label, лежащий перед input#id_password () */
 label[for="id_password"] {
     position: absolute;
@@ -399,8 +395,10 @@ label[for="id_password"] {
     font-size: 18px;
     width: 250px;
 }
+
 label[for="id_password"]::before {
-    content: '🔒'; /* Иконка замка */
+    content: '🔒';
+    /* Иконка замка */
     margin-right: 10px;
     font-size: 1.2em;
     color: #888;
@@ -411,7 +409,7 @@ label[for="id_password"]::before {
 label[for="id_username"]+input#id_username {
     position: absolute;
     display: block;
-    font-size: 16px;    
+    font-size: 16px;
     margin: 13px 0 5px 150px;
     cursor: pointer;
     /* place-items: center; */
@@ -423,11 +421,191 @@ label[for="id_username"]+input#id_username {
     border-radius: 4px;
     /* border-color: #2200ff; */
 }
+
 /* label, лежащий перед input#id_password () */
 label[for="id_username"] {
     position: absolute;
-    /* margin: 18px 30px; */
     margin: 20px 0 10px -235px;
     font-size: 18px;
     width: 250px;
+}
+
+/* --------- Стили для формы регистрации --------- */
+
+.content:has(> .wrap > .register) {
+    place-items: center;
+}
+
+/* для div класса .wrap, у которого потомок класса .register, содержащий прямого потомка div. Т.е., .wrap родитель (parent) */
+.wrap:has(> .register > div) {
+    /* display: flow-root; */
+    display: grid;
+    /* Центрирует по вертикали и горизонтали: */
+    place-items: center;
+    /* Задаём высоту, чтобы увидеть центрирование по вертикали */
+    /* height: 1300px; */
+    /* Центрирование по горизонтали (пораздельно от place-items) */
+    /* justify-items: center; */
+    /* Центрирование по вертикали (пораздельно от place-items) */
+    /* align-items: center; */
+    /* border: 3px solid yellowgreen; */
+    position: absolute;
+    /* left: 600px; */
+    width: 1200px;
+}
+
+/* Непосредственно для <form method="post" class="register">: */
+.register {
+    /* Ребёнок для .wrap, родитель для div-тега, что ниже ... */
+    position: relative;
+    box-shadow: 0 2px 12px 2px #04450a;
+    padding: 40px;
+    border-radius: 8px;
+    /* height: 200px; */
+    margin-bottom: 200px;
+    /* border: 3px solid red; */
+}
+
+/* Выбрать .register, только если внутри есть тег div */
+.register:has(div) {
+    /* Стили для .loginuser, как родителя div */
+    display: grid;
+    grid-auto-flow: row;
+    /* 4 строки одинаковой высоты: */
+    grid-template-rows: repeat(4, 1fr);
+    /* Центрирование по горизонтали (вместо 2-х атриб-в ниже): */
+    place-items: center;
+    align-content: center;
+    gap: 5px;
+    /* - расстояние между строками */
+    /* padding: 10px; */
+    width: 80%;
+    height: 60%;
+    margin-top: 0;
+    margin-bottom: 600px;
+    /* border: 3px solid green; */
+}
+
+/* Для потомка, непосредственного div-тега из формы UserCreationForm */
+/* Этих тегов в форме 3, приименяется ко всем (если не переопределено ниже): */
+.register>div {
+    /* margin: 20px 0px; */
+    width: 60%;
+    font-size: 18px;
+    /* border: 2px solid orange; */
+}
+
+/* для div[id="id_username_helptext"] - комментарий к полю username */
+.register>div>div[id="id_username_helptext"] {
+    font-size: 18px;
+    height: 100px;
+    margin-top: 10px;
+    position: relative;
+    /* border: 2px solid red; */
+}
+
+/* Для label[for="id_username"] - Имя пользователдя в .register: */
+.register>div>label[for="id_username"] {
+    position: absolute;
+    margin: 65px 0 0px -10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    width: 180px;
+    /* border: 3px solid blue; */
+}
+
+/* для input#id_username, котрый лежит сразу после div.helptext */
+/* т.е., через 1тег от label. Есть несколько вариантов написания:  */
+/* div.helptext+input[id="id_username"] { ... } - рядом */
+/* .register>div>div.helptext+input[id="id_username"] { ... } */
+input[id="id_username"] {
+    position: absolute;
+    /* display: block; */
+    font-size: 16px;
+    margin: -55px 0px 0px 190px;
+    cursor: pointer;
+    /* place-items: center; */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    /* #ccc */
+    width: 250px;
+    padding: 8px;
+    border-radius: 4px;
+    /* border: 3px solid blue; */
+}
+
+/* \/\/\/div, имеющий ':has()' прямым потомком '>' label[for="id_password1"] */
+div:has(>label[for="id_password1"]) {
+    position: relative;
+    height: 180px;
+    /* border: 3px solid black; */
+}
+
+/* ^^^можно цвет #2200ff - blue, это 2-й div (переопределён) внутри .register */
+
+/* Для label[for="id_password1"] - Пароль (надпись, метка) */
+/* Можно просто: label[for="id_password1"] { left: 5%; ... } */
+form.register>div>label[for="id_password1"] {
+    position: absolute;
+    margin: 185px 0px 0px -10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    width: 180px;
+    /* border: 3px solid #2200ff; */
+}
+
+/* для input[id="id_password1"] - Пароль (поле ввода) */
+input#id_password1 {
+    position: absolute;
+    font-size: 16px;
+    margin: 10px 0px 0px 190px;
+    cursor: pointer;
+    /* place-items: center; */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    /* #ccc */
+    width: 250px;
+    padding: 8px;
+    border-radius: 4px;
+    /* border: 3px solid blue; */
+}
+
+/* Для label[for="id_password2"] - подтверждение пароля (надпись, метка) */
+label[for="id_password2"] {
+    position: absolute;
+    margin: 55px 0px 0px -85px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    width: 250px;
+    /* border: 3px solid blue; */
+}
+
+/* div.helptext (id="id_password2_helptext"), находя-я между
+ label и input, т.е. комментарий для подтверждения пароля: */
+.register>div>div[id="id_password2_helptext"] {
+    font-size: 18px;
+    height: 100px;
+    margin-top: 10px;
+    position: relative;
+    /* border: 2px solid red; */
+}
+
+/* Для input[id="id_password2"], рядом "+" с div.helptext */
+.helptext+input[id="id_password2"] {
+    position: absolute;
+    font-size: 16px;
+    margin: -65px 0px 0px 190px;
+    cursor: pointer;
+    /* place-items: center; */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    /* #ccc */
+    width: 250px;
+    padding: 8px;
+    border-radius: 4px;
+    /* border: 3px solid blue */
+}
+
+.register>.btn {
+    margin-top: -150px;
 }
