@@ -356,7 +356,7 @@ span b {
 }
 
 /* Выбирает div, внутри которого есть input и label */
-.loginuser>div {
+form.loginuser>div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -608,4 +608,5 @@ label[for="id_password2"] {
 
 .register>.btn {
     margin-top: -150px;
+    padding: 10px;    
 }

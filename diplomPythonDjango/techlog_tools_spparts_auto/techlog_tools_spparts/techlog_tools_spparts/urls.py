@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from techlog_tools import views
+# from telog_spparts import views
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -31,8 +32,14 @@ urlpatterns = [
     path('techlog_tools/', include('techlog_tools.urls')),
     path('telog_spparts/', include('telog_spparts.urls')),
 ]
+# для 'repairs/' name='createautorepairs'
+# Здесь 'telog_spparts/' конкатенируется с 'repairs/',
+# т.е. с адресом пути в urls приложения, задействовав написанную
+# там функцию, как указано views.create_repairs.
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # print('Вывод содержимого переменной
 # "urlpatterns":  ', urlpatterns)
+# telog_spparts/

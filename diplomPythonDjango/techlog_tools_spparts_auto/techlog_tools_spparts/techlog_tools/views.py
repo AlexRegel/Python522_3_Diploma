@@ -63,7 +63,7 @@ def techlog_tools(request):
     })
 
 
-# для techlog_tools
+# для techlog_tools детализация
 def tool_details(request, techlog_tools_id):
     tool = get_object_or_404(TechlogTools2, pk=techlog_tools_id)
     return render(request, 'techlog_tools/tool_details.html',

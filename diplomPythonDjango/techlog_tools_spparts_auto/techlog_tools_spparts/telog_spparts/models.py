@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Модель Техучёта запчастей
@@ -16,6 +17,32 @@ class TelogSpparts(models.Model):
                                     blank=True)  # стат-ссылка, если есть инструкция (не обязательное для заполнения)
 
     # Код продукта, артикул или sku - Stock Keeping Unit (единица складского учета)
+
+    def __str__(self):
+        return self.title
+
+
+# def get_default_user():
+#     # Ищем пользователя 'deleted_user', если его нет — создаем
+#     user, created = User.objects.get_or_create(username='deleted_user')
+#     return user.pk
+
+
+# # repairs / routine repairs -
+# # - модель ремонты / текущие ремонты
+class Repairs(models.Model):
+    title = models.CharField(max_length=100)  # Наименование ремонта
+    rep_memo = models.TextField(blank=True)  # его описание (записка)
+    date_creation = models.DateTimeField(auto_now_add=True)  # Создано
+    ready = models.DateTimeField(blank=True, null=True)  # Завершено
+    priority_rep = models.BooleanField(default=False)  # Приоритет
+    user_performer = models.ForeignKey(  # performer - пользователь_исполнитель
+        User,
+        on_delete=models.SET_NULL,
+        null=True,  # Обязательно для SET_NULL
+        blank=True  # Позволяет оставлять поле пустым
+        # в формах/админке
+    )
 
     def __str__(self):
         return self.title
