@@ -1,0 +1,15 @@
+{% extends 'techlog_tools/base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>{{ error }}</h3>
+
+<h2>{{ repair.title }}</h2>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ repform }}
+    <button class="btrep">Сохранить</button>
+</form>
+
+{% endblock %}

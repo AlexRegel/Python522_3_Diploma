@@ -608,5 +608,94 @@ label[for="id_password2"] {
 
 .register>.btn {
     margin-top: -150px;
-    padding: 10px;    
+    padding: 10px;
+}
+
+/* ----- Окончание стилизации формы регистрации ----- */
+
+/* ----- Стили для формы/страницы проведения авторемонтов  ----- */
+
+.content:has(> .wrap > .repairs) {
+    place-items: center;
+}
+
+/* Чистый синий цвет в формате hex-кода: #2200ff; */
+/* Распределим ремонты по выделенным элементам с маркерами */
+.h1reprs+ul>li {
+    box-shadow: 0 1px 1.5px 2px #3b8713;
+    margin-bottom: 15px;
+    font-size: 18px;
+    background: #e6f0f6;
+}
+
+.h1reprs+ul>li>a {
+    color: #000;
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+
+/* стили заголовка добавления ремонтов */
+.title_rep_h4 {
+    margin: 20px 0 20px 0;
+    text-align: center;
+    color: rgb(208, 0, 255);
+    font-size: 20px;
+    font-weight: 800;
+    /* place-items: center; */
+}
+
+.title_rep_h4+div {
+    text-align: center;
+    padding-bottom: 10px;
+    /* place-items: center; */
+}
+
+.title_rep_h4+div>label[for="id_title"] {
+    /* display: block; */
+    height: 50px;
+    width: 400px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+.title_rep_h4+div>input[id="id_title"] {
+    /* display: block; */
+    height: 30px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+    /* place-items: center; */
+}
+
+/* memo */
+.title_rep_h4+div+div {
+    text-align: center;
+    padding-bottom: 10px;
+    /* place-items: center; */
+}
+
+/* .title_rep_h4+div+ */
+div>label[for="id_rep_memo"] {
+    /* display: block; */
+    height: 150px;
+    width: 400px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+    align-items: center;
+    /* vertical-align: middle; */
+    /* place-items: center; */
+}
+
+.title_rep_h4+div+div>textarea[id="id_rep_memo"] {
+    /* display: block; */
+    height: 150px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+    /* place-items: center; */
 }

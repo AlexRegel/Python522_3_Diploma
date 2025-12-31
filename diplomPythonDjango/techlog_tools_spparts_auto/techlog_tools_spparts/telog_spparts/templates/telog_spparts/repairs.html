@@ -2,11 +2,29 @@
 
 {% block content %}
 
-<h1>Проведение авторемонтов:</h1>
+<h1 class="h1reprs">Проведение авторемонтов:</h1>
+<ul>
+    {% for repair in repairs %}
+    <li>
+        <a href="{% url 'viewrepair' repair.id %}">
+            {% if repair.priority_rep %}
+            <b>{{ repair.title }}</b>
+            {% else %}
+            {{ repair.title }}
+            {% endif %}
+
+            {% if repair.rep_memo %}
+                - {{ repair.rep_memo }}
+            {% endif %}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
 <h3>{{ error }}</h3>
-<form method="post" class="register">
+<form method="post" class="repairs">
     {% csrf_token %}
-    {{ form }}
+    <h4 class="title_rep_h4">Введите новый ремонт</h4>
+    {{ form_rep }}
 <!--        <label style="color: green">Проверка-label</label>-->
     <button class="btn">Новый ремонт</button>
 </form>

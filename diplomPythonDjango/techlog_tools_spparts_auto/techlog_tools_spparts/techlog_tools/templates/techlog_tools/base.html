@@ -23,7 +23,7 @@
                 <!--для запчастей-->
                 <li><a href="{% url 'telogspparts' %}">Запчасти</a></li>
                 <!--для ремонтов-->
-                <li><a href="{% url 'createautorepairs' %}">Авторемонт</a></li>
+                <li><a href="{% url 'currentnewrepairs' %}">Авторемонт</a></li>
                 <li>
                     <form action="{% url 'exitappuser' %}" method="post">
                         {% csrf_token %}
