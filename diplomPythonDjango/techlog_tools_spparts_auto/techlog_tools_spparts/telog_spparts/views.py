@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TelogSpparts, Repairs
 from techlog_tools.forms import RepairsForm
+from django.utils import timezone
 
 
 # Функция страницы запчастей
@@ -47,6 +48,7 @@ def current_new_repairs(request):
 #     return render(request, 'telog_spparts/repairs.html', {'repairs': repairs, 'form_rep': RepairsForm()})
 
 
+# Функционал просмотра, редактирования и сохранения ремонта
 def view_repair(request, repair_pk):
     repair = get_object_or_404(Repairs, pk=repair_pk)
     if request.method == "GET":
@@ -60,3 +62,24 @@ def view_repair(request, repair_pk):
         except ValueError:
             return render(request, 'telog_spparts/viewrepair.html',
                           {'repair': repair, 'repform': repform, 'error': "Неверные данные"})
+
+
+def finished_repair(request, repair_pk):
+    repair = get_object_or_404(Repairs, pk=repair_pk, user_performer=request.user)
+    if request.method == "POST":
+        repair.ready = timezone.now()
+        repair.save()
+        return redirect('currentnewrepairs')
+
+
+def delete_repair(request, repair_pk):
+    repair = get_object_or_404(Repairs, pk=repair_pk, user_performer=request.user)
+    if request.method == "POST":
+        repair.delete()
+        return redirect('currentnewrepairs')
+
+
+def completed_repairs(request):
+    repairs = Repairs.objects.filter(user_performer=request.user, ready__isnull=False).order_by('-ready')
+    return render(request, 'telog_spparts/completed_reps.html', {'repairs': repairs})
+

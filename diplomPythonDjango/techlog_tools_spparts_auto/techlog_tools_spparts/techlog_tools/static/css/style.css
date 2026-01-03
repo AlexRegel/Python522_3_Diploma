@@ -637,11 +637,12 @@ label[for="id_password2"] {
 
 /* стили заголовка добавления ремонтов */
 .title_rep_h4 {
+    padding-top: 20px;
     margin: 20px 0 20px 0;
     text-align: center;
     color: rgb(208, 0, 255);
-    font-size: 20px;
-    font-weight: 800;
+    font-size: 22px;
+    font-weight: 700;
     /* place-items: center; */
 }
 
@@ -653,15 +654,16 @@ label[for="id_password2"] {
 
 .title_rep_h4+div>label[for="id_title"] {
     /* display: block; */
+    margin-left: 50px;
     height: 50px;
     width: 400px;
     text-align: right;
     font-size: 18px;
-    padding-right: 8px;
+    padding-right: 10px;
 }
 
+/* Title: */
 .title_rep_h4+div>input[id="id_title"] {
-    /* display: block; */
     height: 30px;
     width: 400px;
     font-size: 18px;
@@ -670,13 +672,14 @@ label[for="id_password2"] {
     /* place-items: center; */
 }
 
-/* memo */
+/* memo (div): */
 .title_rep_h4+div+div {
     text-align: center;
     padding-bottom: 10px;
     /* place-items: center; */
 }
 
+/* Rep memo (label): */
 /* .title_rep_h4+div+ */
 div>label[for="id_rep_memo"] {
     /* display: block; */
@@ -686,6 +689,7 @@ div>label[for="id_rep_memo"] {
     font-size: 18px;
     padding-right: 8px;
     align-items: center;
+    vertical-align: top;
     /* vertical-align: middle; */
     /* place-items: center; */
 }
@@ -698,4 +702,29 @@ div>label[for="id_rep_memo"] {
     padding-left: 8px;
     margin: 0;
     /* place-items: center; */
+}
+
+/* div с rep */
+.title_rep_h4+div+div+div {
+    /* flex-контейнер, цетрируем по горизонтали: */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    /* цетрируем по обеим осям, но блоки становятся один над другим */
+    /* display: grid; */
+    /* place-items: center; */
+}
+
+div:has(> label[for="id_priority_rep"])+.btn {    
+    display: block;  /* Сделаем кнопку блочным элементом */
+    margin: 0 auto; 
+    /* margin-left: auto; margin-right: auto; */
+}
+
+
+/* #72707f - разновидность серого (для текста) */
+/* Класс второстепенного приоритета ремонтов */
+.cvgrey {
+    display: inline;
+    color: grey;
 }

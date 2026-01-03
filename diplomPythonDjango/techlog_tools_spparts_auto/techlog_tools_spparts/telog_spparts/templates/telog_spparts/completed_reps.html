@@ -1,0 +1,20 @@
+{% extends 'techlog_tools/base.html' %}
+
+{% block content %}
+
+<h1 class="h1reprs">Выполненные авторемонты:</h1>
+<ul>
+    {% for repair in repairs %}
+    <li>
+        {% if repair.ready %}
+        <p class="cvgrey">{{ repair.title }}</p>
+        {% endif %}
+
+        {% if repair.rep_memo %}
+        - {{ repair.rep_memo }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
