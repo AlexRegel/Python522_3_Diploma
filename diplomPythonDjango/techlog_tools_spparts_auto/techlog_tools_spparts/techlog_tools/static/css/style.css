@@ -635,7 +635,8 @@ label[for="id_password2"] {
     text-decoration: none;
 }
 
-/* стили заголовка добавления ремонтов */
+/* стили заголовка добавления ремонтов 
+например, Введите новый ремонт-----*/
 .title_rep_h4 {
     padding-top: 20px;
     margin: 20px 0 20px 0;
@@ -646,6 +647,7 @@ label[for="id_password2"] {
     /* place-items: center; */
 }
 
+/* стили div, что рядом с заголовком доб. рем. */
 .title_rep_h4+div {
     text-align: center;
     padding-bottom: 10px;
@@ -715,9 +717,10 @@ div>label[for="id_rep_memo"] {
     /* place-items: center; */
 }
 
-div:has(> label[for="id_priority_rep"])+.btn {    
-    display: block;  /* Сделаем кнопку блочным элементом */
-    margin: 0 auto; 
+div:has(> label[for="id_priority_rep"])+.btn {
+    display: block;
+    /* Сделаем кнопку блочным элементом */
+    margin: 0 auto;
     /* margin-left: auto; margin-right: auto; */
 }
 
@@ -727,4 +730,170 @@ div:has(> label[for="id_priority_rep"])+.btn {
 .cvgrey {
     display: inline;
     color: grey;
+}
+
+/* Тег <form method="post"...> - Завершённые ремонты */
+.repairs:has(>b+.btn) {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    margin: auto auto;
+    padding-top: 35px;
+}
+
+/* bold, т.е. тег <b>, выделяющий жирным
+текст, направляющий пользователя к кнопке -> .btn */
+.repairs:has(>b+.btn)>b {
+    display: block;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+/* Тег <button type="submit"...> 
+- кнопка перехода на страницу заверш. ремонтов */
+.repairs:has(>b+.btn)>.btn {
+    margin: auto auto;
+    margin-top: 15px;
+    width: 255px;
+    justify-content: end;
+}
+
+/* =========================================================*/
+/* ----- Блок css-стилей для страницы редактирования и
+ сохранения, завершения и удаления ремонтов --------------- */
+/* =========================================================*/
+
+/* стили заголовка добавления ремонтов 
+например, Введите новый ремонт-----*/
+.wrap>h2 {
+    padding-top: 20px;
+    margin: 20px 0 20px 0;
+    text-align: center;
+    color: rgb(144, 0, 255);
+    font-size: 25px;
+    font-weight: 700;
+    /* place-items: center; */
+}
+
+/* 3 дочерних div в form: */
+/* .wrap>h2+.edit_repair>div  */
+/* Если: .edit_repair>input[type="hidden"]+div, то только 1-й div */
+.edit_repair>div {
+    text-align: center;
+    padding-bottom: 10px;
+    /* place-items: center; */
+}
+
+/* дочка 1-го div,
+по факту, Title(label[for="id_title"]): */
+form.edit_repair>div>label[for="id_title"] {
+    /* display: block; */
+    margin-left: 50px;
+    height: 50px;
+    width: 400px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+/* Title(Запголовок ремонта), т.е. input[id="id_title"]: */
+form.edit_repair>div>input[id="id_title"] {
+    height: 30px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+    /* place-items: center; */
+}
+
+/* memo (div): */
+form.edit_repair>div+div {
+    text-align: center;
+    padding-bottom: 10px;
+    /* place-items: center; */
+}
+
+/* Rep memo (label): */
+/* .title_rep_h4+div+ */
+form.edit_repair>div>label[for="id_rep_memo"] {
+    /* display: block; */
+    height: 150px;
+    width: 400px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+    align-items: center;
+    vertical-align: top;
+    /* vertical-align: middle; */
+    /* place-items: center; */
+}
+
+/* Rep memo (textarea): */
+form.edit_repair>div>textarea[id="id_rep_memo"] {
+    /* display: block; */
+    height: 150px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+    /* place-items: center; */
+}
+
+/* div с Priority rep для простановки галочки: */
+form.edit_repair>div+div+div {
+    /* flex-контейнер, цетрируем по горизонтали: */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-size: 18px;
+    /* цетрируем по обеим осям, но блоки становятся один над другим */
+    /* display: grid; */
+    /* place-items: center; */
+}
+
+/* button.btrep, - кнопка сохранения отредактированного ремонта: */
+form.edit_repair>div:has(> label[for="id_priority_rep"])+.btn {
+    display: block;
+    /* Сделаем кнопку блочным элементом */
+    margin: auto auto;
+    color: brown;
+    width: 35%;
+}
+
+/* .btrep */
+form.edit_repair>div:has(> label[for="id_priority_rep"])+.btn::after {
+    content: " → и к списку ремонтов";
+    font-size: 14px;
+    color: blue;
+}
+
+/*--- Работа с двойными классами кнопок "Готово ..." (btrep final)
+и "Удалить ..." (btrep del) ---*/
+
+form.edit_repair {
+    margin-bottom: 10px;
+}
+
+.btrep {
+    width: 35%;
+    padding: 5px;
+    /* margin: 10px; */
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.final {
+    background-color: #34aae1;
+    margin: 10px;
+}
+
+.del {    
+    background-color: #ff0000;
+    margin: 10px;
+}
+
+.finish_rep, .delete_rep {
+    display: flex;
+    justify-content: center;
+    content: " → выгоняющие теги";
 }

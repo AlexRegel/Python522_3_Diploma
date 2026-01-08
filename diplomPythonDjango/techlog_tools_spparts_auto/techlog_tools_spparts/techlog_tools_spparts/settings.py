@@ -123,3 +123,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # STATICFILES_DIRS = 'techlog_tools/logotype_tools.png'
 # STATICFILES_DIRS = 'techlog_tools_spparts/techlog_tools/static'
+
+LOGIN_URL = '/loginapp'

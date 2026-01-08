@@ -5,9 +5,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import TechlogTools, TechlogTools2
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+# from pprint import pprint
+from django.contrib.auth.decorators import login_required
 
 
-# Главная страница
+# Главная (домашняя) страница
 def home(request):  # По умолчанию используется метод 'GET'
     tools = TechlogTools.objects.all()
     return render(request, "techlog_tools/home.html", {'tools': tools})
@@ -33,14 +35,7 @@ def registr_user(request):
                           {'form': UserCreationForm(), 'error': 'Пароли не совпадают'})
 
 
-# Функция выхода (переводит на главную стр.)
-def exitapp_user(request):
-    if request.method == "POST":
-        logout(request)
-        return redirect('home')
-
-
-# Функция входа (авторизированного пользователя)
+# Функция входа (авторизация пользователя)
 def login_user(request):
     if request.method == "GET":
         return render(request, 'techlog_tools/loginuser.html', {'form': AuthenticationForm()})
@@ -54,7 +49,16 @@ def login_user(request):
             return redirect('home')
 
 
+# Функция выхода (закрыв сессию --> на главную стр.)
+@login_required
+def exitapp_user(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect('home')
+
+
 # Функция страницы инструментов
+@login_required
 def techlog_tools(request):
     # Отсортируем по дате, для вывода последних сверху
     tltools2 = TechlogTools2.objects.order_by('-date')  # all()
@@ -64,6 +68,7 @@ def techlog_tools(request):
 
 
 # для techlog_tools детализация
+@login_required
 def tool_details(request, techlog_tools_id):
     tool = get_object_or_404(TechlogTools2, pk=techlog_tools_id)
     return render(request, 'techlog_tools/tool_details.html',

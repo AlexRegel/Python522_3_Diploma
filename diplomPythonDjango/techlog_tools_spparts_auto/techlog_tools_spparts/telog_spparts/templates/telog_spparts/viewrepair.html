@@ -6,22 +6,23 @@
 
 <h2>{{ repair.title }}</h2>
 <!-- форма редактирования ремонта -->
-<form action="" method="post">
+<form action="" method="post" class="edit_repair">
     {% csrf_token %}
     {{ repform }}
     <!-- Здесь можно произвести редактирование
     текущего ремонта и сохранение данных в базе -->
-    <button class="btrep">Сохранить</button>
+    <button class="btn">Сохранить</button>
 </form>
+<!-- btrep -->
 <!-- форма завершения ремонта с проставлением даты завершения "ready" -->
-<form action="{% url 'finished_repair' repair.id %}" method="post">
+<form action="{% url 'finished_repair' repair.id %}" method="post" class="finish_rep">
     {% csrf_token %}
     <!-- Нажатие на клавишу убирает ремонт из списка и
      проставляет базу отметку времени завершения ремонта-->
     <button class="btrep final">Готово (ремонт завершён)</button>
 </form>
 <!-- форма удаления ремонта из базы -->
-<form action="{% url 'delete_repair' repair.id %}" method="post">
+<form action="{% url 'delete_repair' repair.id %}" method="post" class="delete_rep">
     {% csrf_token %}
     <!-- Нажатие на клавишу удаляет ремонт из БД  -->
     <button class="btrep del">Удалить (удаляет ремонт)</button>

@@ -29,4 +29,13 @@
     <button class="btn">Новый ремонт</button>
 </form>
 
+<!-- Завершённые ремонты -->
+{% if user.is_authenticated %}
+    <form action="{% url 'completed_reps' %}" method="post" class="repairs">
+        {% csrf_token %}
+        <b>Нажмите для отображения завершённых ремонтов:</b>
+        <button type="submit" class="btn">Завершённые ремонты</button>
+    </form>
+{% endif %}
+
 {% endblock %}
