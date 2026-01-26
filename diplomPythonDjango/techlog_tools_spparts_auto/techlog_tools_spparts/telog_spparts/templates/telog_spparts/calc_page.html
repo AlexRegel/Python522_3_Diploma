@@ -1,0 +1,106 @@
+{% extends 'techlog_tools/base.html' %}
+
+{% block content %}
+
+<h1 class="h1calc">Калькулятор подсчёта ремонтов:</h1>
+
+{% if errors %}
+<h3>{{ errors }}</h3>
+{% endif %}
+
+<!-- Калькулятор ремонтов (простой, предварительный) -->
+<!-- Принятая переменная: {{ calc_form }}-->
+<!--{% if user.is_authenticated %}-->
+<!--<form action="{% url 'calculate' %}" method="post" class="repairs">-->
+<!--    {% csrf_token %}-->
+
+<!--    {# 1. Скрытые поля (техническая часть, чтобы форма работала) #}-->
+<!--    {% for hidden in calc_form.hidden_fields %}-->
+<!--    {{ hidden }}-->
+<!--    {% endfor %}-->
+
+<!--    <h4 class="title_rep_h4">Введите параметры</h4>-->
+
+<!--    {# 2. Видимые поля (дизайн для пользователя) #}-->
+<!--    {% for field in calc_form.visible_fields %}-->
+<!--    <div class="field-wrapper">-->
+<!--        {{ field.label_tag }}-->
+<!--        {{ field }}-->
+<!--        {# Ошибки (ul) проигнорированы намеренно #}-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+
+<!--    <button type="submit" class="btn">Рассчитать</button>-->
+<!--    {{ result }}-->
+<!--    <button type="submit" class="btn" name="clear">Очистить на сервере</button>-->
+<!--</form>-->
+<!--{% endif %}-->
+<!-- ********************************************* -->
+
+<!-- Калькулятор ремонтов с подгрузкой из базы -->
+{% if user.is_authenticated %}
+<form action="{% url 'calculate' %}" method="post" class="repairs" id="calc-form">
+    {% csrf_token %}
+<!--    {{ calc_form.management_form }} {# Критически важно для работы calc_form #}-->
+
+        {# 1. Скрытые поля (техническая часть, чтобы форма работала) #}
+        {# Критически важно для работы calc_form (calc_form.management_form) #}
+    {% for hidden in calc_form.management_form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+        {# 2. Видимые поля (дизайн для пользователя) #}
+    <div id="form-container">
+        {% for form in calc_form %}
+        <div class="repair-row">
+            {{ form.item }}
+            {{form.price}}
+<!--            {{ form.error }}-->
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <button type="button" id="add-item">Добавить запчасть</button>
+    <button type="submit">Рассчитать общую стоимость</button>
+    <button type="submit" name="clear" class="btn">Очистить данные на сервере</button>
+    <!-- class="btn" -->
+</form>
+{% endif %}
+
+{% if total_price %}
+<h3>Итоговая стоимость ремонта: {{ total_price }} руб.</h3>
+{% endif %}
+
+<script>
+    // JS для динамического добавления новых строк
+    document.getElementById('add-item').onclick = function() {
+        let container = document.getElementById('form-container');
+        let totalForms = document.getElementById('id_form-TOTAL_FORMS');
+        let currentCount = parseInt(totalForms.value);
+
+        // Клонируем первую строку
+        let newRow = container.children[0].cloneNode(true);
+
+        // Обновляем индексы в именах полей (чтобы Django их распознал)
+        newRow.innerHTML = newRow.innerHTML.replace(/-0-/g, `-${currentCount}-`);
+
+        // Очищаем значения в новой строке
+        newRow.querySelectorAll('input').forEach(input => input.value = '');
+
+        container.appendChild(newRow);
+        totalForms.value = currentCount + 1;
+    };
+</script>
+
+{% endblock %}
+
+<!--{% if user.is_authenticated %}-->
+<!--    <form action="{% url 'calculate' %}" method="post" class="fcalc">-->
+<!--        {% csrf_token %}-->
+<!--        <h4 class="title_calc_h4">Введите параметры</h4>-->
+<!--        {{ calc_form }}-->
+<!--        <button type="submit" class="btn-calc">Рассчитать</button>-->
+<!--        {{ result }}-->
+<!--    </form>-->
+<!--{% endif %}-->

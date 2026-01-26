@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1 class="h1reprs">Проведение авторемонтов:</h1>
-<ul>
+<ul style="list-style-type: none; padding-left: 0;">
     {% for repair in repairs %}
     <li>
         <a href="{% url 'viewrepair' repair.id %}">
@@ -28,6 +28,15 @@
 <!--        <label style="color: green">Проверка-label</label>-->
     <button class="btn">Новый ремонт</button>
 </form>
+
+<!-- Калькулятор ремонтов -->
+{% if user.is_authenticated %}
+    <form action="{% url 'calculate' %}" method="post" class="repairs">
+        {% csrf_token %}
+        <b>Нажмите для расчёта стоимости ремонта:</b>
+        <button type="submit" class="btn">Калькулятор ремонта</button>
+    </form>
+{% endif %}
 
 <!-- Завершённые ремонты -->
 {% if user.is_authenticated %}

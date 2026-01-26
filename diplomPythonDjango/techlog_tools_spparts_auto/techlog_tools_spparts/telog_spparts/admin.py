@@ -2,11 +2,16 @@ from django.contrib import admin
 from .models import TelogSpparts, Repairs
 
 
+#  Для отображения в админке скрытых полей
+# используются только зарезервированные св-ва
 class RepairsAdmin(admin.ModelAdmin):
-    #  Для отображения в админке скрытых полей
-    #  Используем следующее зарезервированное свойство
+    #  Здесь зарез-е св-во 'readonly_fields':
     readonly_fields = ('date_creation',)
 
 
-admin.site.register(TelogSpparts)
+class TelogSppartsAdmin(admin.ModelAdmin):
+    readonly_fields = ('date',)
+
+
+admin.site.register(TelogSpparts, TelogSppartsAdmin)
 admin.site.register(Repairs, RepairsAdmin)

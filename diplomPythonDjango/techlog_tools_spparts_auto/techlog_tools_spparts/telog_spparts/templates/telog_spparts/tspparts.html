@@ -1,5 +1,21 @@
 {% extends 'techlog_tools/base.html' %}
 {% load static %}
+
+{% block side_bar %}
+
+    {% if user.is_authenticated and request.resolver_match.url_name == 'telogspparts' %}
+         <!-- Содержимое боковой панели -->
+    <aside class="manage-sidebar">
+        <ul>
+            <li class="sidebar_title"><h4>SideBar_Editor</h4></li>
+            <li class="sidebar_add"><a href="{% url 'addedspparts' %}">Добавление запчастей</a></li>
+            <li class="sidebar_edit"><a href="">Редактирование запчастей</a></li>
+        </ul>
+    </aside>
+    {% endif %}
+
+{% endblock %}
+
 {% block content %}
 
 <h2>Страница запчастей / расходников</h2>
@@ -15,7 +31,7 @@
         <p>{{ tsppart.description|truncatechars:360|safe }}</p>
     </div>
 </div>
-    <!--|striptags -дляСкрытия html-тегов без обработки,ЕслиОни есть  -->
+<!--|striptags -дляСкрытия html-тегов без обработки,ЕслиОни есть  -->
 {% endfor %}
 
 {% endblock %}

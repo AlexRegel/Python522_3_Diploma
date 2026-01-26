@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1 class="h1reprs">Выполненные авторемонты:</h1>
-<ul>
+<ul style="list-style-type: none; padding-left: 0;">
     {% for repair in repairs %}
     <li>
         {% if repair.ready %}

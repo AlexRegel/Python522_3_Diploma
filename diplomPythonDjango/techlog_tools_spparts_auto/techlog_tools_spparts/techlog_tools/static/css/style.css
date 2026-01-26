@@ -8,6 +8,7 @@ body {
     background: #CCFFCC;
 }
 
+/* max-width: 1200px; */
 .wrap {
     max-width: 1200px;
     margin: 0 auto;
@@ -112,9 +113,9 @@ body {
 .tltool2_text {
     display: flex;
     align-items: center;
-    /* Центрируем по вертикали (опционально) */
+    /* -Центрируем по вертикали (опционально) */
     gap: 20px;
-    /* Отступ между картинкой и текстом */
+    /* -Отступ между картинкой и текстом */
     padding: 5px;
     box-sizing: border-box;
     font-size: 14px;
@@ -466,8 +467,8 @@ label[for="id_username"] {
     /* border: 3px solid red; */
 }
 
-/* Выбрать .register, только если внутри есть тег div */
-.register:has(div) {
+/* Выбрать form.register, только если внутри есть тег div */
+form.register:has(div) {
     /* Стили для .loginuser, как родителя div */
     display: grid;
     grid-auto-flow: row;
@@ -635,8 +636,8 @@ label[for="id_password2"] {
     text-decoration: none;
 }
 
-/* стили заголовка добавления ремонтов 
-например, Введите новый ремонт-----*/
+/* -------- Форма добавления ремонтов ------------------ */
+/* h4: содержащее, например: Введите новый ремонт----- */
 .title_rep_h4 {
     padding-top: 20px;
     margin: 20px 0 20px 0;
@@ -647,24 +648,24 @@ label[for="id_password2"] {
     /* place-items: center; */
 }
 
-/* стили div, что рядом с заголовком доб. рем. */
+/* 1-й div в form[class="repairs"] рядом с h4: "Введите новый ремонт", */
+/* div, в котором label[for="id_title"] и input[id="id_title"] */
 .title_rep_h4+div {
     text-align: center;
-    padding-bottom: 10px;
-    /* place-items: center; */
+    padding-bottom: 15px;
 }
 
+/* label[for="id_title"], напр: Наименование ремонта */
 .title_rep_h4+div>label[for="id_title"] {
-    /* display: block; */
-    margin-left: 50px;
-    height: 50px;
-    width: 400px;
+    display: inline-block;
+    height: 30px;
+    width: 300px;
     text-align: right;
     font-size: 18px;
-    padding-right: 10px;
+    padding-right: 8px;
 }
 
-/* Title: */
+/* input[id="id_title"], напр: Наименование ремонта */
 .title_rep_h4+div>input[id="id_title"] {
     height: 30px;
     width: 400px;
@@ -674,48 +675,90 @@ label[for="id_password2"] {
     /* place-items: center; */
 }
 
-/* memo (div): */
+/* 2-й div в form[class="repairs"] для 'Rep memo' (Описание ремонта) */
+/* div, в котором label[for="id_rep_memo"] и input[id="id_rep_memo"] */
 .title_rep_h4+div+div {
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     /* place-items: center; */
 }
 
-/* Rep memo (label): */
+/* label[for="id_rep_memo"]: Rep memo, напр: Описание ремонта */
 /* .title_rep_h4+div+ */
 div>label[for="id_rep_memo"] {
-    /* display: block; */
+    display: inline-block;
     height: 150px;
-    width: 400px;
+    width: 300px;
+    /* Жесткая фиксация ширины */
+    overflow: hidden;
+    /* Обрезать текст, если он длиннее */
+    white-space: nowrap;
+    /* Запрет переноса на новую строку */
+    text-overflow: ellipsis;
+    /* Добавить троеточие в конце */
     text-align: right;
     font-size: 18px;
     padding-right: 8px;
-    align-items: center;
-    vertical-align: top;
-    /* vertical-align: middle; */
-    /* place-items: center; */
+    /* vertical-align: middle; - не активировать без display */
 }
 
+/* textarea[id="id_rep_memo"]: Rep memo, напр: Описание ремонта */
 .title_rep_h4+div+div>textarea[id="id_rep_memo"] {
-    /* display: block; */
+    /* display: block; - по умолчанию */
     height: 150px;
     width: 400px;
     font-size: 18px;
     padding-left: 8px;
     margin: 0;
-    /* place-items: center; */
 }
 
-/* div с rep */
+/* 3-й div в form[class="repairs"] для опц. приоритета: priority_rep */
 .title_rep_h4+div+div+div {
     /* flex-контейнер, цетрируем по горизонтали: */
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
-    /* цетрируем по обеим осям, но блоки становятся один над другим */
-    /* display: grid; */
-    /* place-items: center; */
+    position: relative
+        /* цетрируем по обеим осям, но блоки становятся один над другим */
+        /* display: grid; */
+        /* place-items: center; */
 }
+
+/* label[for="id_priority_rep"] для, напр: !!!Укажите приоритет ...->: */
+div:has(> label[for="id_priority_rep"])>label[for="id_priority_rep"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    /* Жесткая фиксация ширины */
+    overflow: hidden;
+    /* Обрезать текст, если он длиннее */
+    white-space: nowrap;
+    /* Запрет переноса на новую строку */
+    text-overflow: ellipsis;
+    /* Добавить троеточие в конце */
+    text-align: right;
+    font-size: 20px;
+    font-weight: 600;
+    padding-right: 10px;
+    color: rgb(208, 0, 255);
+}
+
+/* -------------- Стилизация увеличенной галочки -------------- */
+/* input[id="id_priority_rep"], - опция для галочки input[type="checkbox"] */
+/* напр: !!!Укажите приоритет */
+div:has(> label[for="id_priority_rep"])>input[id="id_priority_rep"] {
+    height: 30px;
+    transform: scale(1.8);
+    /* Увеличиваеи квадрат в 1.8 раза */
+    margin: 10px;
+    margin-bottom: 0px;
+    margin-top: 0;
+    accent-color: rgb(208, 0, 255);
+    /* Устанавливает цвет галочки и фона */
+}
+
+/* -------------- Окончание стилизации галочки -------------- */
+
 
 div:has(> label[for="id_priority_rep"])+.btn {
     display: block;
@@ -763,8 +806,27 @@ div:has(> label[for="id_priority_rep"])+.btn {
  сохранения, завершения и удаления ремонтов --------------- */
 /* =========================================================*/
 
-/* стили заголовка добавления ремонтов 
-например, Введите новый ремонт-----*/
+/* **** form.edit_repair - содержащая div форма **** */
+form[class="edit_repair"] {
+    display: flex;
+    /* - Включаем гибкий контейнер */
+    flex-direction: column;
+    /* - Выстраиваем элементы (div-теги) в колонку */
+    flex-wrap: nowrap;
+    /* - СТРОГО запрещаем перенос на новую строку */
+    align-items: center;
+    /* - Выравниваем элементы по центру... */
+    gap: 10px;
+    /* - задаём расстояние между div */
+    width: 100%;
+    /* - растягиваем форму */
+    overflow-x: auto;
+    /* - появится прокрутка внутри формы, а не перенос (при узком экране) */
+}
+
+
+/* h2 - стили заголовка добавления ремонтов 
+напр., Введите новый ремонт-----*/
 .wrap>h2 {
     padding-top: 20px;
     margin: 20px 0 20px 0;
@@ -779,6 +841,12 @@ div:has(> label[for="id_priority_rep"])+.btn {
 /* .wrap>h2+.edit_repair>div  */
 /* Если: .edit_repair>input[type="hidden"]+div, то только 1-й div */
 .edit_repair>div {
+    /* Запрещаем блокам сжиматься (не ломаем верстку): */
+    flex-shrink: 0;
+    /* Внутренняя структура div (label + input): */
+    display: flex;
+    /* Делаем label рядом с полем: */
+    flex-direction: row;
     text-align: center;
     padding-bottom: 10px;
     /* place-items: center; */
@@ -787,13 +855,14 @@ div:has(> label[for="id_priority_rep"])+.btn {
 /* дочка 1-го div,
 по факту, Title(label[for="id_title"]): */
 form.edit_repair>div>label[for="id_title"] {
-    /* display: block; */
-    margin-left: 50px;
-    height: 50px;
-    width: 400px;
+    display: inline-block;
+    height: 30px;
+    width: 300px;
     text-align: right;
     font-size: 18px;
-    padding-right: 10px;
+    padding-right: 8px;
+    white-space: nowrap;
+    /* - Запрещает перенос текста внутри меток */
 }
 
 /* Title(Запголовок ремонта), т.е. input[id="id_title"]: */
@@ -808,6 +877,12 @@ form.edit_repair>div>input[id="id_title"] {
 
 /* memo (div): */
 form.edit_repair>div+div {
+    /* Запрещаем блокам сжиматься (не ломаем верстку): */
+    flex-shrink: 0;
+    /* Внутренняя структура div (label + textarea): */
+    display: flex;
+    /* Делаем label рядом с полем: */
+    flex-direction: row;
     text-align: center;
     padding-bottom: 10px;
     /* place-items: center; */
@@ -817,15 +892,19 @@ form.edit_repair>div+div {
 /* .title_rep_h4+div+ */
 form.edit_repair>div>label[for="id_rep_memo"] {
     /* display: block; */
+    display: inline-block;
     height: 150px;
-    width: 400px;
+    width: 300px;
+    /* Жесткая фиксация ширины */
+    overflow: hidden;
+    /* Обрезать текст, если он длиннее */
+    white-space: nowrap;
+    /* Запрет переноса на новую строку */
+    text-overflow: ellipsis;
+    /* Добавить троеточие в конце */
     text-align: right;
     font-size: 18px;
     padding-right: 8px;
-    align-items: center;
-    vertical-align: top;
-    /* vertical-align: middle; */
-    /* place-items: center; */
 }
 
 /* Rep memo (textarea): */
@@ -833,6 +912,8 @@ form.edit_repair>div>textarea[id="id_rep_memo"] {
     /* display: block; */
     height: 150px;
     width: 400px;
+    /* чтобы элемент не деформировался: */
+    min-width: 200px;
     font-size: 18px;
     padding-left: 8px;
     margin: 0;
@@ -841,11 +922,17 @@ form.edit_repair>div>textarea[id="id_rep_memo"] {
 
 /* div с Priority rep для простановки галочки: */
 form.edit_repair>div+div+div {
-    /* flex-контейнер, цетрируем по горизонтали: */
+    /* Запрещаем блокам сжиматься (не ломаем верстку): */
+    flex-shrink: 0;
+    /* Внутренняя структура div (label + input): */
     display: flex;
+    /* Делаем label рядом с input[checkbox]: */
+    flex-direction: row;
     justify-content: center;
     margin-bottom: 5px;
     font-size: 18px;
+    white-space: nowrap;
+    /* - Запрещает перенос текста внутри меток */
     /* цетрируем по обеим осям, но блоки становятся один над другим */
     /* display: grid; */
     /* place-items: center; */
@@ -872,6 +959,7 @@ form.edit_repair>div:has(> label[for="id_priority_rep"])+.btn::after {
 
 form.edit_repair {
     margin-bottom: 10px;
+    /* background: rgba(0, 0, 0, 0.8); */
 }
 
 .btrep {
@@ -887,13 +975,137 @@ form.edit_repair {
     margin: 10px;
 }
 
-.del {    
+.del {
     background-color: #ff0000;
     margin: 10px;
 }
 
-.finish_rep, .delete_rep {
+.finish_rep,
+.delete_rep {
     display: flex;
     justify-content: center;
-    content: " → выгоняющие теги";
+    content: " → завершающие теги";
 }
+
+aside {
+    /* float: right; */
+    /* width: fit-content; */
+    height: 80px;
+    padding: 8px;
+    margin-left: auto;
+
+    background-color: #f9f9f9;
+    border-left: 3px solid #007bff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    font-style: italic;
+}
+
+/* Очистка потока */
+main {
+    overflow: hidden;
+    /* или clearfix */
+}
+
+aside.manage-sidebar>ul {
+    list-style: none;
+    padding-left: 8px;
+}
+
+
+/* =========================================================*/
+/* ----- Блок css-стилей для преобразования aside и div тегов 
+основного контента в две колонки --------------- */
+/* =========================================================*/
+
+/* div[class="content"] - Родитель, содержащий aside и .wrap */
+div.content:has(> aside.manage-sidebar > ul) {
+    /* place-items: center; */
+    display: flex;
+    flex-wrap: nowrap;
+    /* - Превращает дочерние элементы в flex-контейнер */
+    /* Фиксируем межколоночное расстояние: */
+    /* justify-content: flex-start; */
+    /* - т.е. добавляет отступ между колонками */
+    /* Чтобы форма не растягивала блоки на всю ширину, если это не нужно */
+    grid-template-columns: 250px 1fr;
+    gap: 15px;
+    /* width: 100%; */
+}
+
+aside.manage-sidebar {
+    /* Сделаем сайдбар узкой колонкой */
+    flex: 1;
+    /* 1 часть из 3 (если вторая колонка займет 2 части) */
+    /* width: 220px; */
+    min-width: 200px;
+    max-width: 235px;
+    /* Или зададим фиксированную ширину */
+    min-height: 300px;
+    /* height: 800px; */
+    /* background-color: #eef; */
+    padding: 5px;
+    border-radius: 5px;
+    align-self: flex-start;
+    /* - Прижимает к верху только этот блок */
+    margin-top: 138px;
+    margin-right: -58px;
+    margin-left: calc(5%);
+    text-align: center;
+}
+
+.wrap:has(>h2 + h3.count + div.element) {
+    /* Основной контент займет оставшееся пространство */
+    flex: 5;
+    /* 4 части из 4, или просто flex: +1 для равных колонок с сайдбаром */
+    /* background-color: #ffffff; */
+    /* flex-grow: 5; */
+    margin-left: 30px;
+}
+
+/* Стили, преобразующие ссылку в кнопку на sidebar */
+.manage-sidebar a {
+    text-decoration: none;
+    /* Убирает подчеркивание */
+    display: inline-block;
+    /* Важно для padding и margin */
+    padding: 10px 20px;
+    /* Внутренние отступы (верх/низ, лево/право) */
+    margin: 5px 8px;
+    background-color: #bfc8b398;
+    /* Цвет фона */
+    /* color: white; */
+    border: none;
+    /* Убираем стандартную рамку */
+    border-radius: 5px;
+    /* Скругляем углы */
+    cursor: pointer;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+/* При неведении на кнопку/ссылку */
+.manage-sidebar a:hover {
+    background-color: #5f656b;
+    /* Темнее при наведении */
+    color: yellow;
+}
+
+/* При нажатии на кнопку/ссылку */
+.manage-sidebar a:active {
+    background-color: #19191a;
+    /* Еще темнее при нажатии */
+    color: #ff0000;
+    transform: translateY(2px);
+    /* Небольшой эффект "вдавливания" */
+}
+
+/* для использования в старых браузерах межколоночное
+ расстояние 30px, а у последней колонки после - 0px */
+/* form.edit_repair > div {
+    margin-right: 30px;
+}
+form.edit_repair > div:last-child {
+    margin-right: 0;
+} */
