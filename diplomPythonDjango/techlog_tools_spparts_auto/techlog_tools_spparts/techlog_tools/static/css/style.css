@@ -746,7 +746,7 @@ div:has(> label[for="id_priority_rep"])>label[for="id_priority_rep"] {
 /* -------------- Стилизация увеличенной галочки -------------- */
 /* input[id="id_priority_rep"], - опция для галочки input[type="checkbox"] */
 /* напр: !!!Укажите приоритет */
-div:has(> label[for="id_priority_rep"])>input[id="id_priority_rep"] {
+div:has(>label[for="id_priority_rep"])>input[id="id_priority_rep"] {
     height: 30px;
     transform: scale(1.8);
     /* Увеличиваеи квадрат в 1.8 раза */
@@ -852,8 +852,7 @@ form[class="edit_repair"] {
     /* place-items: center; */
 }
 
-/* дочка 1-го div,
-по факту, Title(label[for="id_title"]): */
+/*  */
 form.edit_repair>div>label[for="id_title"] {
     display: inline-block;
     height: 30px;
@@ -1026,7 +1025,7 @@ div.content:has(> aside.manage-sidebar > ul) {
     /* Фиксируем межколоночное расстояние: */
     /* justify-content: flex-start; */
     /* - т.е. добавляет отступ между колонками */
-    /* Чтобы форма не растягивала блоки на всю ширину, если это не нужно */
+    /* Чтобы форма не растягивала блоки на всю ширину, если это не нужно: */
     grid-template-columns: 250px 1fr;
     gap: 15px;
     /* width: 100%; */
@@ -1035,7 +1034,7 @@ div.content:has(> aside.manage-sidebar > ul) {
 aside.manage-sidebar {
     /* Сделаем сайдбар узкой колонкой */
     flex: 1;
-    /* 1 часть из 3 (если вторая колонка займет 2 части) */
+    /* 1 часть из 5 (если вторая колонка займет 4 части) */
     /* width: 220px; */
     min-width: 200px;
     max-width: 235px;
@@ -1109,3 +1108,317 @@ aside.manage-sidebar {
 form.edit_repair > div:last-child {
     margin-right: 0;
 } */
+
+/* калькуляторные стили */
+form#calc-form>label[for="id_form-0-item"] {
+    /* padding-right: 50px; */
+    background-color: #FFF;
+    font-weight: 600;
+}
+
+form#calc-form>label[for="id_form-0-price"] {
+    background-color: yellow;
+    font-weight: 600;
+}
+
+/* Для отображения сообщения об ошибке */
+.h3calc {
+    color: red;
+}
+
+/* Стилизация высоты строк калькулятора */
+/* Выбераем все select, чьи ID начинаются на 'id_form-' и заканчиваются на '-item' */
+.repair-row>select[id^="id_form-"][id$="-item"] {
+    height: 27px !important;
+    padding: 2px 5px;
+    /* - Чтобы текст не прилипал к краям при малой высоте */
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+/* Выбераем все input, чьи ID начинаются на 'id_form-' и закан-ся на '-price' */
+.repair-row>input[id^="id_form-"][id$="-price"] {
+    height: 21px !important;
+    padding: 1px 5px;
+    /* box-sizing: border-box; */
+}
+
+/* Выбераем все input, чьи ID начинаются на 'id_form-' и закан-ся на '-ratio' */
+.repair-row>input[id^="id_form-"][id$="-ratio"] {
+    height: 21px !important;
+    width: 49px;
+    padding: 1px 5px;
+    /* box-sizing: border-box; */
+}
+
+/* Скрываем кнопку удаления только в ПЕРВОЙ строке */
+#form-container:has(>.repair-row) .repair-row:first-child .remove-item {
+    display: none;
+}
+
+/* ========================================================= */
+/* ----- Блок css-стилей для формы пополнения запчастей
+ и div тегов данного контента в ряд равнозначных строк ----- */
+/* ========================================================= */
+/* -------- Форма пополнения запчастей ------------------ */
+
+/* .title_rep_h4 { */
+
+form[class="fo_add_spparts"] {
+    display: block;
+}
+
+/* h4: содержащее, например: Введите новую запчасть ----- */
+.h4_add_spparts {
+    padding-top: 20px;
+    margin: 20px 0 20px 0;
+    text-align: center;
+    color: rgb(208, 0, 255);
+    font-size: 22px;
+    font-weight: 700;
+    /* place-items: center; */
+}
+
+/* 1-й div в form[class="fo_add_spparts"] рядом с h4: " Введите новую запчасть", */
+/* div, в котором label[for="id_title"] и input[id="id_title"] */
+.h4_add_spparts+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* label[for="id_title"], напр: Наименование запчасти */
+.h4_add_spparts+div>label[for="id_title"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+/* input[id="id_title"], напр: Наименование ремонта */
+.h4_add_spparts+div>input[id="id_title"] {
+    height: 30px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+    /* place-items: center; */
+}
+
+/* 2-й div в form[class="fo_add_spparts"] для 'Rep memo' (Описание) */
+/* div, в котором label[for="id_description"] и input[id="id_description"] */
+.h4_add_spparts+div+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* label[for="id_description"]: Rep memo, напр: Описание ремонта */
+/* .h4_add_spparts+div+ */
+div>label[for="id_description"] {
+    display: inline-block;
+    height: 150px;
+    width: 300px;
+    /* - Жесткая фиксация ширины */
+    overflow: hidden;
+    /* - Обрезать текст, если он длиннее */
+    white-space: nowrap;
+    /* - Запрет переноса на новую строку */
+    text-overflow: ellipsis;
+    /* - Добавить троеточие в конце */
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+    /* vertical-align: middle; - не активировать без display */
+}
+
+/* textarea[id="id_description"]: Rep memo, напр: Описание запчасти */
+.h4_add_spparts+div+div>textarea[id="id_description"] {
+    /* display: block; - по умолчанию */
+    height: 150px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+.h4_add_spparts+div+div+div {
+    text-align: left;
+    padding-bottom: 15px;
+}
+
+/* label[for="id_image"], напр. Изображение */
+.h4_add_spparts+div+div+div>label[for="id_image"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+/* input#id_image: кнопка "Выберите файл" */
+.h4_add_spparts+div+div+div>input#id_image {
+    /* display: none; */
+    font-size: 18px;
+}
+
+/*     background-color: #1e4b20;
+    color: white; */
+/* div>input#id_image::file-selector-button {
+    background-color: #435047;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+} */
+
+/* div, отвечающий за ввод примерной стоимости */
+.h4_add_spparts+div+div+div+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* label, напр. Примерная стоимость */
+.h4_add_spparts+div+div+div+div>label[for="id_price_order"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+/* input, ввода Примерной стоимости */
+.h4_add_spparts+div+div+div+div>input[id="id_price_order"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+/* div, содержащий url для заказа */
+.h4_add_spparts+div+div+div+div+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* label, напр. url для заказа */
+div>label[for="id_url"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+/* input для ввода url для заказа */
+div>input[id="id_url"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+/* div, содержащий Product code */
+.h4_add_spparts+div+div+div+div+div+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/*  */
+/* label, напр. Product code */
+div>label[for="id_product_code"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+}
+
+/* input для ввода Product code */
+div>input[id="id_product_code"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+/* Дата/время установки (на авто) */
+/* div, содержащий Дату/время установки */
+.h4_add_spparts+div+div+div+div+div+div+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* label, напр. Дата/время установки (на авто) */
+div>label[for="id_datetime"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+    /* padding-left: -50px; */
+}
+
+/* input для ввода Даты/времени установки (на авто) */
+div>input[id="id_datetime"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+/* Инструкция по установке (если присутствует) */
+/* div, содержащий Инструкцию по установке (если есть) */
+.h4_add_spparts+div+div+div+div+div+div+div+div {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* label, напр. Инструкция по установке */
+div>label[for="id_instructions"] {
+    display: inline-block;
+    height: 30px;
+    width: 300px;
+    text-align: right;
+    font-size: 18px;
+    padding-right: 8px;
+    /* padding-left: -50px; */
+}
+
+/* input для ввода url расположения Инструкции по установке */
+div>input[id="id_instructions"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+/* div, содержащий кнопку добавления запчастей */
+div:has(>.btn_add_spparts) {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+/* кнопка, напр. Добавить запчасть */
+button.btn_add_spparts {
+    /* margin: auto auto; */
+    margin-top: 15px;
+    width: 255px;
+    justify-content: end;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* -------- окончание формы пополнения запчастей ------------- */
+/* ----------------------------------------------------------- */

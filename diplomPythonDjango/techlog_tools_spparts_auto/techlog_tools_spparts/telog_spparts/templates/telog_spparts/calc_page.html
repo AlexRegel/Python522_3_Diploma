@@ -5,76 +5,106 @@
 <h1 class="h1calc">Калькулятор подсчёта ремонтов:</h1>
 
 {% if errors %}
-<h3>{{ errors }}</h3>
+<h3 class="h3calc">{{ errors }}</h3>
 {% endif %}
 
-<!-- Калькулятор ремонтов (простой, предварительный) -->
-<!-- Принятая переменная: {{ calc_form }}-->
-<!--{% if user.is_authenticated %}-->
-<!--<form action="{% url 'calculate' %}" method="post" class="repairs">-->
-<!--    {% csrf_token %}-->
-
-<!--    {# 1. Скрытые поля (техническая часть, чтобы форма работала) #}-->
-<!--    {% for hidden in calc_form.hidden_fields %}-->
-<!--    {{ hidden }}-->
-<!--    {% endfor %}-->
-
-<!--    <h4 class="title_rep_h4">Введите параметры</h4>-->
-
-<!--    {# 2. Видимые поля (дизайн для пользователя) #}-->
-<!--    {% for field in calc_form.visible_fields %}-->
-<!--    <div class="field-wrapper">-->
-<!--        {{ field.label_tag }}-->
-<!--        {{ field }}-->
-<!--        {# Ошибки (ul) проигнорированы намеренно #}-->
-<!--    </div>-->
-<!--    {% endfor %}-->
-
-<!--    <button type="submit" class="btn">Рассчитать</button>-->
-<!--    {{ result }}-->
-<!--    <button type="submit" class="btn" name="clear">Очистить на сервере</button>-->
-<!--</form>-->
-<!--{% endif %}-->
-<!-- ********************************************* -->
+<!-- доп теги для Калькулятора ремонтов: отображение лэйблов над графами -->
+{% if user.is_authenticated %}
+<form action="{% url 'calculate' %}" method="post" class="repairs" id="calc-form">
+    {% csrf_token %}
+    {% for form in calc_form %}
+    <!-- <div class="calc_label" style="padding-right: 0px;"> -->
+    {% if forloop.first %}
+    {{ form.item.label_tag }}
+    {{ form.price.label_tag }}
+    {{ form.ratio.label_tag }}
+    {% endif %}
+    <!-- </div> -->
+    {% endfor %}
+</form>
+<!--{{ form.item.label_tag }}-->
+<!-- --Отрисует <label>Выбрать деталь</label> -->
+{% endif %}
 
 <!-- Калькулятор ремонтов с подгрузкой из базы -->
 {% if user.is_authenticated %}
 <form action="{% url 'calculate' %}" method="post" class="repairs" id="calc-form">
     {% csrf_token %}
-<!--    {{ calc_form.management_form }} {# Критически важно для работы calc_form #}-->
+    <!-- {{ calc_form.management_form }} {# Критически важно для работы calc_form #} -->
 
-        {# 1. Скрытые поля (техническая часть, чтобы форма работала) #}
-        {# Критически важно для работы calc_form (calc_form.management_form) #}
+    {# 1. Скрытые поля (техническая часть, чтобы форма работала) #}
+    {# Критически важно для работы calc_form (calc_form.management_form) #}
     {% for hidden in calc_form.management_form.hidden_fields %}
-        {{ hidden }}
+    {{ hidden }}
     {% endfor %}
 
-        {# 2. Видимые поля (дизайн для пользователя) #}
+    {# 2. Видимые поля (дизайн для пользователя) #}
     <div id="form-container">
         {% for form in calc_form %}
         <div class="repair-row">
             {{ form.item }}
-            {{form.price}}
-<!--            {{ form.error }}-->
+            {{ form.price }}
+            {{ form.ratio }}
+            <!-- {{ form.error }} -->
+            <button type="button" class="remove-item">Удалить</button> <!-- Удаление строки -->
         </div>
         {% endfor %}
     </div>
 
-
-    <button type="button" id="add-item">Добавить запчасть</button>
-    <button type="submit">Рассчитать общую стоимость</button>
+    <button type="button" id="add-item" class="btn">Добавить запчасть</button>
+    <button type="submit" class="btn">Рассчитать общую стоимость</button>
+    <!-- <button type="button" class="delete-row-btn">Удалить строку</button> -->
     <button type="submit" name="clear" class="btn">Очистить данные на сервере</button>
     <!-- class="btn" -->
 </form>
 {% endif %}
 
-{% if total_price %}
+{% if total_price and t_price_kop %}
+<h3>Итоговая стоимость ремонта: {{ total_price }} руб. {{ t_price_kop }} коп.</h3>
+{% elif total_price == 0 and t_price_kop == 0 %}
+<h3>Введите данные и/или проверьте введённое количество.</h3>
+{% elif total_price and t_price_kop == 0 %}
 <h3>Итоговая стоимость ремонта: {{ total_price }} руб.</h3>
+{% elif total_price == 0 and t_price_kop %} {# total_price == 0 and t_price_kop != 0 #}
+<h3>Итоговая стоимость ремонта: 00 руб. {{ t_price_kop }} коп.</h3>
+{% else %}
+<h3>Здесь будет результат расчётов</h3>
 {% endif %}
 
 <script>
-    // JS для динамического добавления новых строк
-    document.getElementById('add-item').onclick = function() {
+
+    // 1. Функция для переиндексации всех строк (чтобы не было дыр 0, 1, 3)
+    function updateElementIndex() {
+        let rows = document.querySelectorAll('.repair-row'); // Класс строки
+        let totalForms = document.getElementById('id_form-TOTAL_FORMS');
+        totalForms.value = rows.length;
+
+        rows.forEach((row, index) => {
+            row.querySelectorAll('input, select, label').forEach(el => {
+                // Обновляем id, name и for, заменяя старый индекс на новый
+                const idRegex = /form-\d+-/;
+                const replacement = `form-${index}-`;
+                if (el.id) el.id = el.id.replace(idRegex, replacement);
+                if (el.name) el.name = el.name.replace(idRegex, replacement);
+                if (el.getAttribute('for')) el.setAttribute('for', el.getAttribute('for').replace(idRegex, replacement));
+            });
+        });
+    }
+
+    // 2. Обработчик Удаления строки, слушатель события клика по данной строке
+    document.getElementById('form-container').addEventListener('click', function (event) {
+        // Проверяем, что кликнули именно по кнопке удаления
+        if (event.target && event.target.classList.contains('remove-item')) {
+            let row = event.target.closest('.repair-row'); // Поиск родительской строки
+            if (row) {
+                row.remove();
+                updateElementIndex(); // Функция переиндексации
+            }
+        }
+    });
+
+    // 3. Обработчик JS для динамического добавления новых строк
+    document.getElementById('add-item').onclick = function () {
         let container = document.getElementById('form-container');
         let totalForms = document.getElementById('id_form-TOTAL_FORMS');
         let currentCount = parseInt(totalForms.value);
@@ -86,11 +116,60 @@
         newRow.innerHTML = newRow.innerHTML.replace(/-0-/g, `-${currentCount}-`);
 
         // Очищаем значения в новой строке
-        newRow.querySelectorAll('input').forEach(input => input.value = '');
+        newRow.querySelectorAll('input.price-input').forEach(input => input.value = '');
+        newRow.querySelectorAll('input.ratio-input').forEach(input => input.value = '1');
+
+        // Сброс выпадающего списка к значению "--- Не выбрана ---"
+        newRow.querySelectorAll('select').forEach(select => {
+            select.selectedIndex = 0; // Выбор первой опции
+        });
+
+        // Находим кнопку удаления в КЛОНИРОВАННОЙ строке 
+        // (теперь .addEventListener('click', ...), те данное событие не потребовалось.)
+        // let deleteBtn = newRow.querySelector('.remove-item');
+        // if (deleteBtn) {
+        //     deleteBtn.onclick = function() {
+        //         newRow.remove();
+        //         updateElementIndex(); // Обязательно пересчитываем TOTAL_FORMS и ID
+        //     };
+        // }
 
         container.appendChild(newRow);
+        //***************
+        // Сразу после добавления в новый select и изменяем его высоту (27px) 
+        // let newSelect = container.querySelector(`[name="form-${currentCount}-item"]`);
+        // if (newSelect) {
+        //     newSelect.style.height = '27px';
+        // } // Решён стилизацией всех select (.repair-row>select[id^="id_form-"][id$="-item"])
+        //***************
         totalForms.value = currentCount + 1;
     };
+
+    // JS для программной установки css-свойств и padding-right
+    // Для лэйбла тега select (выбор запчасти)
+    const labelItem = document.querySelector('label[for="id_form-0-item"]');
+    const textWidthIt = labelItem.getBoundingClientRect().width;
+    labelItem.style.paddingRight = `${616 - textWidthIt}px`;
+    labelItem.style.fontWeight = 600;
+
+    // Для лэйбла тега input (ввод цены на запчасть)
+    const labelPrice = document.querySelector('label[for="id_form-0-price"]');
+    const textWidthPr = labelPrice.getBoundingClientRect().width;
+    labelPrice.style.paddingRight = `${183 - textWidthPr}px`;
+    labelPrice.style.backgroundColor = '#FFF';
+    labelPrice.style.fontWeight = 600;
+    // 174
+    // Для лэйбла тега input (ввод кол-ва запчастей)
+    const labelRatio = document.querySelector('label[for="id_form-0-ratio"]');
+    const textWidthRa = labelRatio.getBoundingClientRect().width;
+    labelRatio.style.paddingRight = `${61 - textWidthRa}px`;
+    labelRatio.style.backgroundColor = 'white';
+    labelRatio.style.fontWeight = 600;
+
+    // Стилизация для <select> и <input>    
+    // let selectForm = document.getElementById('id_form-0-item');
+    // selectForm.style.height = '27px';
+    // selectForm.style.width = '610px';
 </script>
 
 {% endblock %}

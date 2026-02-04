@@ -111,70 +111,55 @@ def added_spparts(request):
     # manager_spparts
 
 
-# Функционал калькулятора (пока базовый)
-# def calc(request):
-#     res = None
-#     if request.method == 'POST':
-#         if 'clear' in request.POST:  # При нажатой кнопке с name="clear"
-#             return redirect('calculate')
-#
-#         calc_form = CalcForm(request.POST or None)
-#         if calc_form.is_valid():
-#             chosen_price = calc_form.cleaned_data['chosen_price']
-#             operation = calc_form.cleaned_data['operation']
-#             n1 = calc_form.cleaned_data['number1']
-#             n2 = calc_form.cleaned_data['number2']
-#             # Логика калькулятора
-#             if operation == 'add':
-#                 res = n1 + n2
-#             elif operation == 'sub':
-#                 res = n1 - n2
-#             elif operation == 'mul':
-#                 res = n1 * n2
-#             else:  # operation == 'div'
-#                 res = n1 / n2
-#
-#         if not calc_form.is_valid():
-#             # Если форма невалидна (например, только зашли на страницу через POST),
-#             # создаем её заново с начальными значениями
-#             calc_form = CalcForm()
-#     else:
-#         # calc_form = CalcForm()
-#         calc_form = CalcForm(initial={'operation': 'add'})
-#
-#     return render(request, 'telog_spparts/calc_page.html',
-#                   {
-#                       'calc_form': calc_form,
-#                       'result': res,
-#                   })
-
-# **************************************************
-
-# Функционал калькулятора, работа с подгрузкой запчастей из БД
+# Функционал калькулятора, работа с подгрузкой запчастей <select> из БД
 def calc(request):
     # extra=1 означает, что изначально будет одна пустая строка
     RepairFormSet = formset_factory(CalcForm, extra=2)
 
     if request.method == 'POST':
-        if 'clear' in request.POST:  # При нажатой кнопке с name="clear"
-            return redirect('calculate')  # очиста данных
+        try:
+            if 'clear' in request.POST:  # При нажатой кнопке с name="clear"
+                return redirect('calculate')  # очиста данных
 
-        calc_form = RepairFormSet(request.POST)
-        if calc_form.is_valid():
-            # Считаем сумму всех введенных цен
-            total_price = sum(form.cleaned_data.get('price', 0) for form in calc_form)
+            calc_form = RepairFormSet(request.POST)
+            if calc_form.is_valid():
+                item_prices = []
+                for form in calc_form:
+                    ratio = form.cleaned_data.get('ratio', 1)
+                    price = form.cleaned_data.get('price', 0)
+                    if ratio >= 1:
+                        item_price = price * ratio
+                        item_prices.append(item_price)
+                    # elif ratio == 1:
+                    #     item_prices.append(price)
+                    else:
+                        item_price = 0
+                        item_prices.append(item_price)
+                # Считаем сумму всех введенных цен
+                total_price = round(sum(item_prices), 2)  # float - 2 знака после ','
+                t_price_rub = int(total_price)  # рубли - отброшен остаток (не округлён!!!)
+                t_price_kop = int((total_price - t_price_rub) * 100)  # int(n * 100) - копеек
+                # total_price = sum(form.cleaned_data.get('price', 0) for form in calc_form)
+                return render(
+                    request,
+                    'telog_spparts/calc_page.html',
+                    {
+                        'calc_form': calc_form,
+                        'total_price': t_price_rub,  # total_price
+                        't_price_kop': t_price_kop,
+                    })
+            if not calc_form.is_valid():
+                # Если форма невалидна (например, только зашли на страницу через POST),
+                # создаем её заново с начальными значениями
+                return redirect('calculate')  # очиста данных
+        except TypeError:
             return render(
                 request,
                 'telog_spparts/calc_page.html',
-                {
-                    'calc_form': calc_form,
-                    'total_price': total_price,
-                })
-        if not calc_form.is_valid():
-            # Если форма невалидна (например, только зашли на страницу через POST),
-            # создаем её заново с начальными значениями
-            return redirect('calculate')  # очиста данных
-    else:
+                {'calc_form': calc_form,
+                 'errors': 'Ошибка! Неверные данные! Проверьте заполнение поля цены и повторите попытку',
+                 })
+    else:  # если: request.method == 'GET'
         calc_form = RepairFormSet()
     return render(
         request,

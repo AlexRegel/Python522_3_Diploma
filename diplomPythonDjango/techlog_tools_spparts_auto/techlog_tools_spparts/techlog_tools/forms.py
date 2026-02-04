@@ -35,12 +35,12 @@ class SpparstAddedForm(forms.ModelForm):
         ]
         labels = {
             'title': 'Наименование запчасти',
-            'description': 'Описание',
+            'description': 'Описание запчасти',
             'image': 'Изображение',
-            'url': 'url для заказа',
+            'url': 'URL для заказа',
             'price_order': 'Примерная стоимость',
-            'instructions': 'Инструкцию по установке (если есть)',
-            'datetime': 'Отметьте, дату/время установки на авто',
+            'instructions': 'Инструкцию по установке',
+            'datetime': 'Дата/время установки на авто',
             # 'date': 'Дата поступления в БД',
             # 'user_who_added': 'Пользователь добавивший в БД',
         }
@@ -53,42 +53,8 @@ class TelogChoiceField(forms.ModelChoiceField):
         return f"{obj.title} (Цена: {obj.price_order})"
 
 
-# Форма для калькулятьора (пока без взаимодействия с БД)
-# class CalcForm(forms.Form):
-#     # Поле для выбора одного объекта из базы (по умолчанию)
-#     # part = forms.ModelChoiceField(
-#     #     queryset=TelogSpparts.objects.all(),
-#     #     label="Выберите деталь",
-#     #     empty_label="--- Деталь не выбрана ---"
-#     # )
-#     part = TelogChoiceField(
-#         queryset=TelogSpparts.objects.all(),
-#         label="Выберите деталь",
-#         empty_label="--- Деталь не выбрана ---"
-#     )
-#     # ориентировочная цена запчасти
-#     # Поле, где пользователь сам уточнит цену на основе увиденного интервала
-#     chosen_price = forms.DecimalField(
-#         label="Укажите точную цену из интервала",
-#         min_value=0
-#     )
-#
-#     number1 = forms.FloatField(label="Число 1")
-#     number2 = forms.FloatField(label="Число 2")
-#     operation = forms.ChoiceField(
-#         choices=[
-#             ('add', '+'),
-#             ('sub', '-'),
-#             ('mul', '*'),
-#             ('div', '/'),
-#         ],
-#         label="Операция",
-#         initial='add',
-#         widget=forms.RadioSelect,
-#     )
-
 # Форма для калькулятьора (проверка со взаимодействием с БД)
-class CalcForm(forms.Form):  # либо RepairItemForm
+class CalcForm(forms.Form):
     # Список запчастей (можно подгружать из БД)
     # item = forms.ChoiceField(
     #     choices=[('screen', 'Экран (1000-5000р)'), ('battery', 'АКБ (500-2000р)')],
@@ -97,13 +63,23 @@ class CalcForm(forms.Form):  # либо RepairItemForm
     # Список запчастей подгружаемых из БД
     item = TelogChoiceField(  # part
         queryset=TelogSpparts.objects.all(),  # choices
-        label="Выберите деталь",
+        label="Выберите деталь для рассчёта стоимости ремонта",
         empty_label="--- Запчасть/деталь не выбрана ---",
         # widget=forms.Select(attrs={'class': 'item-select'})
+        required=False,  # параметр валидации, если поле пустое
     )
     # Поле для ввода точной цены пользователем
     price = forms.DecimalField(
         min_value=0,
         widget=forms.NumberInput(attrs={'placeholder': 'Введите цену', 'class': 'price-input'}),
-        # label="Укажите точную цену (из интервала)",
+        label="Укажите цену",
+        required=False,  # если поле пустое, пройдёт валидацию
+    )
+    # Поле для ввода коэффициента-количества единиц запчастей
+    ratio = forms.DecimalField(
+        min_value=0,
+        initial=1,  # Устанавливает значение по умолчанию
+        help_text="Введите коэффициент",  # Опущен, если initial
+        widget=forms.NumberInput(attrs={'placeholder': 'Введите коэффициент', 'class': 'ratio-input'}),
+        label="Кол-во",  # Введите количество
     )
