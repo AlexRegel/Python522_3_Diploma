@@ -1164,9 +1164,9 @@ form#calc-form>label[for="id_form-0-price"] {
 
 /* .title_rep_h4 { */
 
-form[class="fo_add_spparts"] {
+/* form[class="fo_add_spparts"] {
     display: block;
-}
+} */
 
 /* h4: содержащее, например: Введите новую запчасть ----- */
 .h4_add_spparts {
@@ -1186,8 +1186,8 @@ form[class="fo_add_spparts"] {
     padding-bottom: 15px;
 }
 
-/* label[for="id_title"], напр: Наименование запчасти */
-.h4_add_spparts+div>label[for="id_title"] {
+/* label, напр: Наименование запчасти (ранее_был_[for="id_title"]) */
+.h4_add_spparts+div>label {
     display: inline-block;
     height: 30px;
     width: 300px;
@@ -1213,9 +1213,9 @@ form[class="fo_add_spparts"] {
     padding-bottom: 15px;
 }
 
-/* label[for="id_description"]: Rep memo, напр: Описание ремонта */
+/* label, напр: Описание ремонта (ранее_был_[for="id_description"])*/
 /* .h4_add_spparts+div+ */
-div>label[for="id_description"] {
+.h4_add_spparts+div+div>label {
     display: inline-block;
     height: 150px;
     width: 300px;
@@ -1233,7 +1233,8 @@ div>label[for="id_description"] {
 }
 
 /* textarea[id="id_description"]: Rep memo, напр: Описание запчасти */
-.h4_add_spparts+div+div>textarea[id="id_description"] {
+/* .h4_add_spparts+div+ */
+div>textarea[id="id_description"] {
     /* display: block; - по умолчанию */
     height: 150px;
     width: 400px;
@@ -1247,8 +1248,8 @@ div>label[for="id_description"] {
     padding-bottom: 15px;
 }
 
-/* label[for="id_image"], напр. Изображение */
-.h4_add_spparts+div+div+div>label[for="id_image"] {
+/* label, напр. Изображение (ранее_был_[for="id_image"])*/
+.h4_add_spparts+div+div+div>label {
     display: inline-block;
     height: 30px;
     width: 300px;
@@ -1261,6 +1262,16 @@ div>label[for="id_description"] {
 .h4_add_spparts+div+div+div>input#id_image {
     /* display: none; */
     font-size: 18px;
+    width: 535px;
+}
+
+/* >#id_image: кнопка "Выберите файл" в новом варианте */
+div[class="form-group field-image"]>.field-control {
+    width: 420.83px;
+    height: 30px;
+}
+.field-control>#id_image{
+    width: 98%;
 }
 
 /*     background-color: #1e4b20;
@@ -1280,8 +1291,8 @@ div>label[for="id_description"] {
     padding-bottom: 15px;
 }
 
-/* label, напр. Примерная стоимость */
-.h4_add_spparts+div+div+div+div>label[for="id_price_order"] {
+/* label, напр. Примерная стоимость [for="id_price_order"] */
+.h4_add_spparts+div+div+div+div>label {
     display: inline-block;
     height: 30px;
     width: 300px;
@@ -1305,8 +1316,8 @@ div>label[for="id_description"] {
     padding-bottom: 15px;
 }
 
-/* label, напр. url для заказа */
-div>label[for="id_url"] {
+/* label, напр. url для заказа [for="id_url"] */
+.h4_add_spparts+div+div+div+div+div>label {
     display: inline-block;
     height: 30px;
     width: 300px;
@@ -1321,7 +1332,8 @@ div>input[id="id_url"] {
     width: 400px;
     font-size: 18px;
     padding-left: 8px;
-    margin: 0;
+    /* padding-right: 12px; */
+    margin-right: 11px;
 }
 
 /* div, содержащий Product code */
@@ -1331,8 +1343,8 @@ div>input[id="id_url"] {
 }
 
 /*  */
-/* label, напр. Product code */
-div>label[for="id_product_code"] {
+/* label, напр. Product code [for="id_product_code"] */
+.h4_add_spparts+div+div+div+div+div+div>label {
     display: inline-block;
     height: 30px;
     width: 300px;
@@ -1350,49 +1362,22 @@ div>input[id="id_product_code"] {
     margin: 0;
 }
 
-/* Дата/время установки (на авто) */
-/* div, содержащий Дату/время установки */
-.h4_add_spparts+div+div+div+div+div+div+div {
-    text-align: center;
-    padding-bottom: 15px;
-}
-
-/* label, напр. Дата/время установки (на авто) */
-div>label[for="id_datetime"] {
-    display: inline-block;
-    height: 30px;
-    width: 300px;
-    text-align: right;
-    font-size: 18px;
-    padding-right: 8px;
-    /* padding-left: -50px; */
-}
-
-/* input для ввода Даты/времени установки (на авто) */
-div>input[id="id_datetime"] {
-    height: 25px;
-    width: 400px;
-    font-size: 18px;
-    padding-left: 8px;
-    margin: 0;
-}
-
 /* Инструкция по установке (если присутствует) */
 /* div, содержащий Инструкцию по установке (если есть) */
-.h4_add_spparts+div+div+div+div+div+div+div+div {
+div.form-group.field-instructions {
     text-align: center;
     padding-bottom: 15px;
 }
 
-/* label, напр. Инструкция по установке */
-div>label[for="id_instructions"] {
+/* label, напр. Инструкция по установке [for="id_instructions"] */
+/* .h4_add_spparts+div+div+div+div+div+div+div>label { */
+div[class="form-group field-instructions"]>label {
     display: inline-block;
     height: 30px;
     width: 300px;
     text-align: right;
     font-size: 18px;
     padding-right: 8px;
-    /* padding-left: -50px; */
 }
 
 /* input для ввода url расположения Инструкции по установке */
@@ -1401,10 +1386,10 @@ div>input[id="id_instructions"] {
     width: 400px;
     font-size: 18px;
     padding-left: 8px;
-    margin: 0;
 }
 
 /* div, содержащий кнопку добавления запчастей */
+/* //////// */
 div:has(>.btn_add_spparts) {
     text-align: center;
     padding-bottom: 15px;
@@ -1420,5 +1405,121 @@ button.btn_add_spparts {
     font-weight: 600;
 }
 
+/* вариант с фиксацией для input[type='file'] */
+/* ///////// */
+/* 1. Основной контейнер строки */
+.form-group {
+    display: flex;
+    align-items: flex-start;
+    /* Выравнивание по верху, если инпут высокий */
+    margin-bottom: 15px;
+}
+
+/* Метка (label) */
+.form-group label {
+    flex: 0 0 400px;
+    /* Запрет сжатия, фиксируем 400px */
+    text-align: right;
+    margin-right: 15px;
+    padding-top: 5px;
+    /* Совмещение по высоте с текстом в инпуте */
+}
+
+/* Контейнер инпута и звездочки */
+.field-control {
+    display: flex;
+    align-items: center;
+    /* Центрируем звездочку относительно инпута */
+    flex-wrap: nowrap;
+    /* Запрещаем перенос на новую строку */
+}
+
+/* Сама звездочка */
+.required-star {
+    color: red;
+    font-weight: bold;
+    margin-left: 5px;
+    white-space: nowrap;
+    /* Еще одна страховка от переноса */
+}
+
+/* Вывод ошибок размещаем под <input>, а не сбоку */
+.field-control {
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* Позволяем ошибкам падать вниз, если надо */
+}
+
+.error-message {
+    width: 100%;
+    /* Ошибка займет всю ширину под инпутом */
+    color: red;
+    font-size: 0.8em;
+}
+/* уникальное поведение корректируем */
+.field-control input[id="id_title"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+
+.field-control input[id="id_price_order"] {
+    height: 25px;
+    width: 400px;
+    font-size: 18px;
+    padding-left: 8px;
+    margin: 0;
+}
+/* //// допы ///// */
+/* -------- окончание варианта с фиксацией для input[type='file'] ------------- */
 /* -------- окончание формы пополнения запчастей ------------- */
+/* ----------------------------------------------------------- */
+
+/* Стилизвция тегов ошибок */
+.h3_error_add_spp {
+    color: red;
+}
+
+/* Стилизвция тегов ошибок частных */
+input[required] label::after {
+    content: " *";
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* -------- Начало формы детализации запчастей ------------- */
+/* ----------------------------------------------------------- */
+
+.limit {
+    width: 1032px;
+    height: 180px;
+}
+
+.limit>ul {
+    min-width: 800px;
+    max-width: 900px;
+}
+
+/* детализация картинки/фото запчасти, приведение к одному разхмеру */
+/* div-контейнер */
+.blkphoto {
+    width: 300px;
+    /* Желаемая высота */
+    overflow: hidden;
+}
+
+/* само img, изображение */
+.blkphoto>img {
+    max-width: 380px;
+    max-height: 430px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Обрезает изображение, сохраняя пропорции */
+}
+
+
+/* -------- Окончание формы детализации запчастей ------------- */
 /* ----------------------------------------------------------- */

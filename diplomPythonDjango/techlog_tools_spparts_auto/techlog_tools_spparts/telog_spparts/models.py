@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Модель Техучёта запчастей
-# spare parts - запчасти.
+# Модель Техучёта запчастей (spare parts - запчасти)
 class TelogSpparts(models.Model):
     title = models.CharField(max_length=100)  # Наименование запчасти.
     description = models.TextField()  # Её описание
@@ -15,16 +14,15 @@ class TelogSpparts(models.Model):
     datetime = models.DateTimeField(null=True, blank=True)  # Дата/время установки на авто необ.
     instructions = models.CharField(max_length=100, null=True,
                                     blank=True)  # стат-ссылка, если есть инструкция (не обязательное для заполнения)
-    # user_who_added = models.ForeignKey(  # performer - пользователь_исполнитель
-    #     User,
-    #     on_delete=models.SET_NULL,
-    #     null=True,  # Обязательно для SET_NULL
-    #     blank=True  # Позволяет оставлять поле пустым
-    #     # в формах/админке
-    # )
+    user_who_added = models.ForeignKey(  # performer - пользователь_исполнитель
+        User,
+        on_delete=models.SET_NULL,
+        null=True,  # Обязательно для SET_NULL
+        blank=True  # Позволяет оставлять поле пустым
+        # в формах/админке
+    )
 
-    # Код продукта, артикул или sku - Stock Keeping Unit (единица складского учета)
-
+    # product_code - Код продукта, артикул или sku - Stock Keeping Unit (единица складского учета)
     def __str__(self):
         return self.title
 
@@ -53,4 +51,3 @@ class Repairs(models.Model):
 
     def __str__(self):
         return self.title
-

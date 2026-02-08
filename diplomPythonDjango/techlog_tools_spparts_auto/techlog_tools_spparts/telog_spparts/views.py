@@ -63,15 +63,17 @@ def view_repair(request, repair_pk):
     repair = get_object_or_404(Repairs, pk=repair_pk)
     if request.method == "GET":
         repform = RepairsForm(instance=repair)
-        return render(request, 'telog_spparts/viewrepair.html', {'repair': repair, 'repform': repform})
-    else:
+        context = {'repair': repair, 'repform': repform}
+        return render(request, 'telog_spparts/viewrepair.html', context)
+    else:  # request.method == "POST"
         try:
             repform = RepairsForm(request.POST, instance=repair)
             repform.save()
             return redirect('currentnewrepairs')
         except ValueError:
+            context = {'repair': repair, 'repform': repform, 'error': "Неверные данные"}
             return render(request, 'telog_spparts/viewrepair.html',
-                          {'repair': repair, 'repform': repform, 'error': "Неверные данные"})
+                          context)
 
 
 # Завершение ремонтов
@@ -101,14 +103,35 @@ def completed_repairs(request):
 
 
 # Функционал по добавлению запчастей со стороны сайта
+@login_required
 def added_spparts(request):
-    if request.method == "GET":
-        return render(request, 'telog_spparts/added_spparts.html', {'form_add_spparts': SpparstAddedForm()})
-    # else:  # Из полей формы забираем данные,
-    #     try:  # отправленные методом POST
-    #         form_add_spp = SpparstAddedForm(request.POST)
-
-    # manager_spparts
+    try:
+        if request.method == "POST":
+            # ОБЯЗАТЕЛЬНО добавляем request.FILES для обработки изображений
+            form = SpparstAddedForm(request.POST, request.FILES)
+            if form.is_valid():
+                new_form_add = form.save(commit=False)
+                new_form_add.user_who_added = request.user
+                new_form_add.save()
+                return redirect('addedspparts')
+            else:
+                # Если форма невалидна,
+                # проходим вниз и рендерим страницу с ошибками
+                pass
+        else:
+            form = SpparstAddedForm()
+            # Если GET или если форма НЕВАЛИДНА (is_valid == False)
+            return render(request, 'telog_spparts/added_spparts.html', {
+                'form_add_spparts': form})
+    except ValueError:
+        form = SpparstAddedForm()
+        return render(request, 'telog_spparts/added_spparts.html', {
+            'form_add_spparts': form,
+            'error_added': 'Неверные данные. Попробуйте ещё раз',
+        })
+    return render(request, 'telog_spparts/added_spparts.html', {
+        'form_add_spparts': form
+    })
 
 
 # Функционал калькулятора, работа с подгрузкой запчастей <select> из БД
@@ -153,6 +176,8 @@ def calc(request):
                 # создаем её заново с начальными значениями
                 return redirect('calculate')  # очиста данных
         except TypeError:
+            # Если ошибка заполнения полей, в частности - цены
+            calc_form = RepairFormSet(request.POST)
             return render(
                 request,
                 'telog_spparts/calc_page.html',

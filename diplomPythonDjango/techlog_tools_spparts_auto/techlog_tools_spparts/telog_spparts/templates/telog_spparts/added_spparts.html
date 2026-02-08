@@ -2,17 +2,45 @@
 
 {% block content %}
 
-<!--<h1 class="h1_manage_spps">Пополнение / редактирование запчастей:</h1>-->
 <h1 class="h1_add_spparts">Пополнение запчастей:</h1>
 
-<h3>{{ error_added }}</h3>
+<h3 class="h3_error_add_spp">{{ error_added }}</h3>
 
-<form method="post" class="fo_add_spparts">
+<form method="post" class="fo_add_spparts" enctype="multipart/form-data">
     {% csrf_token %}
+    <!-- Вывод общих ошибок формы (если есть) -->
+    {% if form_add_spparts.non_field_errors %}
+    <div style="color: red; font-weight: bold; font-size: 18px">
+        {{ form_add_spparts.non_field_errors }}
+    </div>
+    {% endif %}
+
     <h4 class="h4_add_spparts">Введите новую запчасть</h4>
-    {{ form_add_spparts }}
+
+    <!-- Вывод полей формы, с учётом важности и частных ошибок -->
+    {% for field in form_add_spparts %}
+    <!-- Для CSS добавили уникальный класс на основе имени поля Django -->
+    <div class="form-group field-{{ field.name }}">
+        <label>{{ field.label }}</label>
+        <!-- Добавляем контейнер для фиксации input[type="file"] -->
+        <div class="field-control">
+            {{ field }}
+<!--             {{ field.help_text }}-->
+            <!-- Обязательные поля отмечаем звёздочкой * -->
+            {% if field.field.required %}
+            <span style="color: red; font-weight: bold;">*</span>
+            {% endif %}
+            <!-- Частные ошибки полей (в случае появления) -->
+            {% if field.errors %}
+            <div class="error-message" style="color: red; font-size: 0.8em;">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
     <div>
-        <button class="btn_add_spparts">Добавить запчасть</button>
+        <button type="submit" class="btn_add_spparts">Добавить запчасть</button>
     </div>
 </form>
 

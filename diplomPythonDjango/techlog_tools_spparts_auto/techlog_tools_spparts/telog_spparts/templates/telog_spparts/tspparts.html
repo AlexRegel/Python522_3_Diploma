@@ -3,16 +3,17 @@
 
 {% block side_bar %}
 
-    {% if user.is_authenticated and request.resolver_match.url_name == 'telogspparts' %}
-         <!-- Содержимое боковой панели -->
-    <aside class="manage-sidebar">
-        <ul>
-            <li class="sidebar_title"><h4>SideBar_Editor</h4></li>
-            <li class="sidebar_add"><a href="{% url 'addedspparts' %}">Добавление запчастей</a></li>
-            <li class="sidebar_edit"><a href="">Редактирование запчастей</a></li>
-        </ul>
-    </aside>
-    {% endif %}
+{% if user.is_authenticated and request.resolver_match.url_name == 'telogspparts' %}
+<!-- SideBar_Editor -->
+<!-- Содержимое боковой панели: Добавление запчастей, Редактирование запчастей -->
+<aside class="manage-sidebar">
+    <ul>
+        <li class="sidebar_title"><h4>Специальные опции</h4></li>
+        <li class="sidebar_add"><a href="{% url 'addedspparts' %}">Добавление запчастей</a></li>
+        <li class="sidebar_edit"><a href="{% url 'calculate' %}">Калькулятор ремонта</a></li>
+    </ul>
+</aside>
+{% endif %}
 
 {% endblock %}
 

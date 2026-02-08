@@ -13,25 +13,23 @@
 <form action="{% url 'calculate' %}" method="post" class="repairs" id="calc-form">
     {% csrf_token %}
     {% for form in calc_form %}
-    <!-- <div class="calc_label" style="padding-right: 0px;"> -->
+
+    <!-- Выводим только заглавные 1-е теги (Шапки колонок) -->
     {% if forloop.first %}
     {{ form.item.label_tag }}
     {{ form.price.label_tag }}
     {{ form.ratio.label_tag }}
     {% endif %}
-    <!-- </div> -->
+
     {% endfor %}
 </form>
-<!--{{ form.item.label_tag }}-->
-<!-- --Отрисует <label>Выбрать деталь</label> -->
 {% endif %}
 
 <!-- Калькулятор ремонтов с подгрузкой из базы -->
 {% if user.is_authenticated %}
 <form action="{% url 'calculate' %}" method="post" class="repairs" id="calc-form">
     {% csrf_token %}
-    <!-- {{ calc_form.management_form }} {# Критически важно для работы calc_form #} -->
-
+        
     {# 1. Скрытые поля (техническая часть, чтобы форма работала) #}
     {# Критически важно для работы calc_form (calc_form.management_form) #}
     {% for hidden in calc_form.management_form.hidden_fields %}
@@ -55,7 +53,6 @@
     <button type="submit" class="btn">Рассчитать общую стоимость</button>
     <!-- <button type="button" class="delete-row-btn">Удалить строку</button> -->
     <button type="submit" name="clear" class="btn">Очистить данные на сервере</button>
-    <!-- class="btn" -->
 </form>
 {% endif %}
 
@@ -72,7 +69,6 @@
 {% endif %}
 
 <script>
-
     // 1. Функция для переиндексации всех строк (чтобы не было дыр 0, 1, 3)
     function updateElementIndex() {
         let rows = document.querySelectorAll('.repair-row'); // Класс строки
