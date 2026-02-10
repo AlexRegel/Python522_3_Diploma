@@ -1130,6 +1130,7 @@ form#calc-form>label[for="id_form-0-price"] {
 /* Выбераем все select, чьи ID начинаются на 'id_form-' и заканчиваются на '-item' */
 .repair-row>select[id^="id_form-"][id$="-item"] {
     height: 27px !important;
+    width: 615px !important;
     padding: 2px 5px;
     /* - Чтобы текст не прилипал к краям при малой высоте */
     margin-top: 5px;
@@ -1520,6 +1521,9 @@ input[required] label::after {
     /* Обрезает изображение, сохраняя пропорции */
 }
 
+.wrap .alert {
+    text-align: center;
+}
 
 /* -------- Окончание формы детализации запчастей ------------- */
 /* ----------------------------------------------------------- */

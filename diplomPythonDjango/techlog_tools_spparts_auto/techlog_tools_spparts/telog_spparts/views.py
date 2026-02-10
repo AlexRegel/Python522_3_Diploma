@@ -4,6 +4,7 @@ from techlog_tools.forms import RepairsForm, SpparstAddedForm, CalcForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
 from django.forms import formset_factory
 
 
@@ -113,6 +114,8 @@ def added_spparts(request):
                 new_form_add = form.save(commit=False)
                 new_form_add.user_who_added = request.user
                 new_form_add.save()
+                # Сформируем сообщение об успехе:
+                messages.success(request, "Запчасть успешно добавлена!")
                 return redirect('addedspparts')
             else:
                 # Если форма невалидна,

@@ -5,6 +5,7 @@
     <h3>{{ sppart.title }}</h3>
     <div class="tltool2_text2">
         <p>{{ sppart.description|safe }}</p>
+        <p>Примерная стоимость: {{ sppart.price_order }}</p>
         {% if sppart.instructions %}
         <div style="margin-bottom: 0; color: red;">Внимание! Имеется инструкция по установке:</div>
         <a href="{% static sppart.instructions %}" target="_blank" >Инструкция по установке</a>

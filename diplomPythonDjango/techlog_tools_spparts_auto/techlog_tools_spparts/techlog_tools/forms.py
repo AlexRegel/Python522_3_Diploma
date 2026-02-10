@@ -103,7 +103,7 @@ class CalcForm(forms.Form):
     # Список запчастей подгружаемых из БД
     item = TelogChoiceField(  # part
         queryset=TelogSpparts.objects.all(),  # choices
-        label="Выберите деталь для рассчёта стоимости ремонта",
+        label="Выберите запчасть/деталь для рассчёта стоимости ремонта",
         empty_label="--- Запчасть/деталь не выбрана ---",
         # widget=forms.Select(attrs={'class': 'item-select'})
         required=False,  # параметр валидации, если поле пустое

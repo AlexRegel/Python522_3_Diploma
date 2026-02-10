@@ -120,24 +120,8 @@
             select.selectedIndex = 0; // Выбор первой опции
         });
 
-        // Находим кнопку удаления в КЛОНИРОВАННОЙ строке 
-        // (теперь .addEventListener('click', ...), те данное событие не потребовалось.)
-        // let deleteBtn = newRow.querySelector('.remove-item');
-        // if (deleteBtn) {
-        //     deleteBtn.onclick = function() {
-        //         newRow.remove();
-        //         updateElementIndex(); // Обязательно пересчитываем TOTAL_FORMS и ID
-        //     };
-        // }
-
         container.appendChild(newRow);
-        //***************
-        // Сразу после добавления в новый select и изменяем его высоту (27px) 
-        // let newSelect = container.querySelector(`[name="form-${currentCount}-item"]`);
-        // if (newSelect) {
-        //     newSelect.style.height = '27px';
-        // } // Решён стилизацией всех select (.repair-row>select[id^="id_form-"][id$="-item"])
-        //***************
+
         totalForms.value = currentCount + 1;
     };
 
@@ -161,21 +145,6 @@
     labelRatio.style.paddingRight = `${61 - textWidthRa}px`;
     labelRatio.style.backgroundColor = 'white';
     labelRatio.style.fontWeight = 600;
-
-    // Стилизация для <select> и <input>    
-    // let selectForm = document.getElementById('id_form-0-item');
-    // selectForm.style.height = '27px';
-    // selectForm.style.width = '610px';
 </script>
 
 {% endblock %}
-
-<!--{% if user.is_authenticated %}-->
-<!--    <form action="{% url 'calculate' %}" method="post" class="fcalc">-->
-<!--        {% csrf_token %}-->
-<!--        <h4 class="title_calc_h4">Введите параметры</h4>-->
-<!--        {{ calc_form }}-->
-<!--        <button type="submit" class="btn-calc">Рассчитать</button>-->
-<!--        {{ result }}-->
-<!--    </form>-->
-<!--{% endif %}-->

@@ -29,7 +29,9 @@
     <h2 class="top2"><a href="{% url 'sppart_details' tsppart.id %}">{{ tsppart.title }}</a></h2>
     <div class="tltool2_text">
         <img src="{{ tsppart.image.url }}" alt="">
-        <p>{{ tsppart.description|truncatechars:360|safe }}</p>
+        <ul style="list-style: none;">
+            <li><p>{{ tsppart.description|truncatechars:360|safe }}</p></li>
+        </ul>
     </div>
 </div>
 <!--|striptags -дляСкрытия html-тегов без обработки,ЕслиОни есть  -->
