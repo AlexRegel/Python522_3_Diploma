@@ -32,17 +32,13 @@ body {
     /* max-height: 200px; */
 }
 
-/* .limit ul {
-    display: flex;    
-    overflow: visible;
-} */
 /* зона обработки  */
 .limit {
     display: flex;
     flex-direction: column;
     height: 140px;
     /* Ограничиваем высоту родителя */
-    overflow: hidden;
+    /* overflow: hidden; */
     /* Скрываем лишнее */
 }
 
@@ -123,7 +119,7 @@ body {
     position: relative;
 }
 
-.tltool2_text p {
+.tltool2_text>p {
     padding-right: 8px;
     margin: 0;
 }
@@ -133,8 +129,8 @@ body {
     flex-direction: column;
     justify-content: space-between;
     /* Распределяет пространство */
-    min-height: 100px;
-    /* Пример, чтобы было видно */
+    /* min-height: 450px; */
+    /* Пример, чтобы было видно #ccc */
     border: 1px solid #ccc;
     padding: 0 8px;
     text-align: justify;
@@ -809,11 +805,11 @@ div:has(> label[for="id_priority_rep"])+.btn {
 /* **** form.edit_repair - содержащая div форма **** */
 form[class="edit_repair"] {
     display: flex;
-    /* - Включаем гибкий контейнер */
+    /* - Гибкий контейнер */
     flex-direction: column;
     /* - Выстраиваем элементы (div-теги) в колонку */
     flex-wrap: nowrap;
-    /* - СТРОГО запрещаем перенос на новую строку */
+    /* - Запрет переноса (СТРОГИЙ) на новую строку */
     align-items: center;
     /* - Выравниваем элементы по центру... */
     gap: 10px;
@@ -1008,6 +1004,7 @@ main {
 aside.manage-sidebar>ul {
     list-style: none;
     padding-left: 8px;
+    /* max-width: 150px; */
 }
 
 
@@ -1021,6 +1018,7 @@ div.content:has(> aside.manage-sidebar > ul) {
     /* place-items: center; */
     display: flex;
     flex-wrap: nowrap;
+    position: relative;
     /* - Превращает дочерние элементы в flex-контейнер */
     /* Фиксируем межколоночное расстояние: */
     /* justify-content: flex-start; */
@@ -1036,8 +1034,8 @@ aside.manage-sidebar {
     flex: 1;
     /* 1 часть из 5 (если вторая колонка займет 4 части) */
     /* width: 220px; */
-    min-width: 200px;
-    max-width: 235px;
+    max-width: 220px;
+    max-width: 190px;
     /* Или зададим фиксированную ширину */
     min-height: 300px;
     /* height: 800px; */
@@ -1046,19 +1044,26 @@ aside.manage-sidebar {
     border-radius: 5px;
     align-self: flex-start;
     /* - Прижимает к верху только этот блок */
-    margin-top: 138px;
+    margin-top: 143px;
     margin-right: -58px;
     margin-left: calc(5%);
     text-align: center;
 }
 
+div.content:has(> aside.manage-sidebar .wrap) {
+    place-items: center;
+}
+
 .wrap:has(>h2 + h3.count + div.element) {
     /* Основной контент займет оставшееся пространство */
     flex: 5;
-    /* 4 части из 4, или просто flex: +1 для равных колонок с сайдбаром */
-    /* background-color: #ffffff; */
-    /* flex-grow: 5; */
+    /* 4 части из 5 (или просто flex: +1 для равных колонок с сайдбаром) */
     margin-left: 30px;
+}
+
+.sidebar_title {
+    margin-right: 5px;
+    text-align: center;
 }
 
 /* Стили, преобразующие ссылку в кнопку на sidebar */
@@ -1271,7 +1276,8 @@ div[class="form-group field-image"]>.field-control {
     width: 420.83px;
     height: 30px;
 }
-.field-control>#id_image{
+
+.field-control>#id_image {
     width: 98%;
 }
 
@@ -1457,6 +1463,7 @@ button.btn_add_spparts {
     color: red;
     font-size: 0.8em;
 }
+
 /* уникальное поведение корректируем */
 .field-control input[id="id_title"] {
     height: 25px;
@@ -1473,6 +1480,7 @@ button.btn_add_spparts {
     padding-left: 8px;
     margin: 0;
 }
+
 /* //// допы ///// */
 /* -------- окончание варианта с фиксацией для input[type='file'] ------------- */
 /* -------- окончание формы пополнения запчастей ------------- */
@@ -1501,7 +1509,22 @@ input[required] label::after {
 .limit>ul {
     min-width: 800px;
     max-width: 900px;
+    min-height: 150px;
 }
+
+.tltool2_text2 {
+    min-height: 250px;
+    
+}
+
+/* body:has(>.menu+.content >.manage-sidebar+.wrap) */
+/* body:has(.manage-sidebar) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    min-height: 100vh;
+    width: 100%;
+} */
 
 /* детализация картинки/фото запчасти, приведение к одному разхмеру */
 /* div-контейнер */

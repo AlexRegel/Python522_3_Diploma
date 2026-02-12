@@ -10,54 +10,66 @@
 </head>
 
 <body>
-    <div class="menu">
-        <div class="wrap">
-            <div class="logo">
-                <a href="{% url 'home' %}">
-                    <img src="{% static 'techlog_tools/car-tools.png' %}" alt="">
-                </a>
-            </div>
-            <ul>
-                {% if user.is_authenticated %}
-                <li class="logo">Пользователь: {{ user.username }}</li>
-                <li><a href="{% url 'home' %}">Главная</a></li>
-                <li><a href="{% url 'techlogtools' %}">Инструменты</a></li>
-                <!--для запчастей-->
-                <li><a href="{% url 'telogspparts' %}">Запчасти</a></li>
-                <!--для ремонтов-->
-                <li><a href="{% url 'currentnewrepairs' %}">Авторемонт</a></li>
-                <li>
-                    <form action="{% url 'exitappuser' %}" method="post">
-                        {% csrf_token %}
-                        <button class="exit">Выход</button>
-                    </form>
-                </li>
-                {% else %}
-                <li><a href="{% url 'registruser' %}">Зарегистрироваться</a></li>
-                <li><a href="{% url 'loginuser' %}">Войти</a></li>
-                {% endif %}
-            </ul>
+<div class="menu">
+    <div class="wrap">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'techlog_tools/car-tools.png' %}" alt="">
+            </a>
         </div>
-    </div>
-
-    <div class="content">
-        {% block side_bar %}
-        {% endblock %}
-        <div class="wrap">
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} js-timeout-alert">
-                {{ message }}
-                <!-- Кнопка-крестик -->
-                <button type="button" class="btn-close" data-bs-dismiss="alert" 
-                aria-label="Close">&times;</button>
-            </div>
-            {% endfor %}
+        <ul>
+            {% if user.is_authenticated %}
+            <li class="logo">Пользователь: {{ user.username }}</li>
+            <li><a href="{% url 'home' %}">Главная</a></li>
+            <li><a href="{% url 'techlogtools' %}">Инструменты</a></li>
+            <!--для запчастей-->
+            <li><a href="{% url 'telogspparts' %}">Запчасти</a></li>
+            <!--для ремонтов-->
+            <li><a href="{% url 'currentnewrepairs' %}">Авторемонт</a></li>
+            <li>
+                <form action="{% url 'exitappuser' %}" method="post">
+                    {% csrf_token %}
+                    <button class="exit">Выход</button>
+                </form>
+            </li>
+            {% else %}
+            <li><a href="{% url 'registruser' %}">Зарегистрироваться</a></li>
+            <li><a href="{% url 'loginuser' %}">Войти</a></li>
             {% endif %}
-            {% block content %}
-            {% endblock %}            
-        </div>
+        </ul>
     </div>
+</div>
+
+<div class="content">
+    {% block side_bar %}
+    {% endblock %}
+    <div class="wrap">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} js-timeout-alert">
+            {{ message }}
+            <!-- Кнопка-крестик -->
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+        <script>
+            // 3 секунды (3000 мс) ожидание и скрытие сообщения
+            setTimeout(function () {
+                const alerts = document.querySelectorAll('.js-timeout-alert');
+                alerts.forEach(function (alert) {
+                    // Плавное исчезновение через прозрачность
+                    alert.style.transition = "opacity 0.6s linear";
+                    alert.style.opacity = "0";
+                    // Полное удаление из документа через 0.6с после начала анимации
+                    setTimeout(() => alert.remove(), 600);
+                });
+            }, 3000);
+        </script>
+    </div>
+</div>
 
 </body>
 

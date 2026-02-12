@@ -1,6 +1,10 @@
 {% extends 'techlog_tools/base.html' %}
 {% load static %}
 
+<!-- Начало блока центровки -->
+{% block centered %}
+<div class="centered-cluster">
+
 {% block side_bar %}
 
 {% if user.is_authenticated and request.resolver_match.url_name == 'telogspparts' %}
@@ -37,4 +41,8 @@
 <!--|striptags -дляСкрытия html-тегов без обработки,ЕслиОни есть  -->
 {% endfor %}
 
+{% endblock %}
+
+</div>
+<!-- окончание блока центровки -->
 {% endblock %}
