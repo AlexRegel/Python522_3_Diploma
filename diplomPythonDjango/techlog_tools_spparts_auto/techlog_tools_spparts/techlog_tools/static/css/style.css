@@ -439,13 +439,6 @@ label[for="id_username"] {
     display: grid;
     /* Центрирует по вертикали и горизонтали: */
     place-items: center;
-    /* Задаём высоту, чтобы увидеть центрирование по вертикали */
-    /* height: 1300px; */
-    /* Центрирование по горизонтали (пораздельно от place-items) */
-    /* justify-items: center; */
-    /* Центрирование по вертикали (пораздельно от place-items) */
-    /* align-items: center; */
-    /* border: 3px solid yellowgreen; */
     position: absolute;
     /* left: 600px; */
     width: 1200px;
@@ -830,7 +823,7 @@ form[class="edit_repair"] {
     color: rgb(144, 0, 255);
     font-size: 25px;
     font-weight: 700;
-    /* place-items: center; */
+    place-items: center;
 }
 
 /* 3 дочерних div в form: */
@@ -1051,12 +1044,12 @@ aside.manage-sidebar {
 }
 
 div.content:has(> aside.manage-sidebar .wrap) {
-    place-items: center;
+    place-items: center;    
 }
 
 .wrap:has(>h2 + h3.count + div.element) {
     /* Основной контент займет оставшееся пространство */
-    flex: 5;
+    flex: 5;    
     /* 4 части из 5 (или просто flex: +1 для равных колонок с сайдбаром) */
     margin-left: 30px;
 }
@@ -1104,15 +1097,6 @@ div.content:has(> aside.manage-sidebar .wrap) {
     transform: translateY(2px);
     /* Небольшой эффект "вдавливания" */
 }
-
-/* для использования в старых браузерах межколоночное
- расстояние 30px, а у последней колонки после - 0px */
-/* form.edit_repair > div {
-    margin-right: 30px;
-}
-form.edit_repair > div:last-child {
-    margin-right: 0;
-} */
 
 /* калькуляторные стили */
 form#calc-form>label[for="id_form-0-item"] {
@@ -1167,12 +1151,6 @@ form#calc-form>label[for="id_form-0-price"] {
  и div тегов данного контента в ряд равнозначных строк ----- */
 /* ========================================================= */
 /* -------- Форма пополнения запчастей ------------------ */
-
-/* .title_rep_h4 { */
-
-/* form[class="fo_add_spparts"] {
-    display: block;
-} */
 
 /* h4: содержащее, например: Введите новую запчасть ----- */
 .h4_add_spparts {
@@ -1281,16 +1259,6 @@ div[class="form-group field-image"]>.field-control {
     width: 98%;
 }
 
-/*     background-color: #1e4b20;
-    color: white; */
-/* div>input#id_image::file-selector-button {
-    background-color: #435047;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-} */
 
 /* div, отвечающий за ввод примерной стоимости */
 .h4_add_spparts+div+div+div+div {
@@ -1516,15 +1484,6 @@ input[required] label::after {
     min-height: 250px;
     
 }
-
-/* body:has(>.menu+.content >.manage-sidebar+.wrap) */
-/* body:has(.manage-sidebar) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    min-height: 100vh;
-    width: 100%;
-} */
 
 /* детализация картинки/фото запчасти, приведение к одному разхмеру */
 /* div-контейнер */

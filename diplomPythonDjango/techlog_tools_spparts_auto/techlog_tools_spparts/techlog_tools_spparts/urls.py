@@ -43,3 +43,5 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # print('Вывод содержимого переменной
 # "urlpatterns":  ', urlpatterns)
 # telog_spparts/
+
+admin.site.site_title = "АдминСайт"  # Текст во вкладке браузера

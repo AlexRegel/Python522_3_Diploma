@@ -14,7 +14,7 @@
     {% csrf_token %}
     {% for form in calc_form %}
 
-    <!-- Выводим только заглавные 1-е теги (Шапки колонок) -->
+    <!-- Выводим только заглавные 1-е теги (динамические Шапки колонок) -->
     {% if forloop.first %}
     {{ form.item.label_tag }}
     {{ form.price.label_tag }}

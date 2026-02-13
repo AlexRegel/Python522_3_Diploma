@@ -73,7 +73,7 @@ class SpparstAddedForm(forms.ModelForm):
 
         self.fields['instructions'].required = False
 
-    # Имитация (вариация) ошибки заполнения формы
+    # Учёт (Имитация) ошибки заполнения формы
     def clean(self):
         # Получаем данные, которые уже прошли базовую проверку полей
         cleaned_data = super().clean()

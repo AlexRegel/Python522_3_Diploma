@@ -12,6 +12,3 @@ urlpatterns = [
     path('added_spparts/', views.added_spparts, name='addedspparts'),
     path('current_new_repairs/calculate/', views.calc, name='calculate'),
 ]
-# в base.html используется, например name='currentnewrepairs'
-# в теге  <a href="{% url 'currentnewrepairs' %}"> %}", как
-# ссылка на модуль создания / проведения новых ремонтов

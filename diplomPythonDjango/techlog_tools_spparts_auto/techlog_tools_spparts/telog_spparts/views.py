@@ -50,14 +50,6 @@ def current_new_repairs(request):
                           context)
 
 
-# Функция текущих ремонтов (объеденена -->)
-# (--> с предыдущей, незадействована)
-# def current_repairs(request):
-#     # __isnull - постфикс для поля завершения 'ready' ремонтов
-#     repairs = Repairs.objects.filter(user_performer=request.user, ready__isnull=True)
-#     return render(request, 'telog_spparts/repairs.html', {'repairs': repairs, 'form_rep': RepairsForm()})
-
-
 # Функционал просмотра, редактирования и сохранения ремонта
 @login_required
 def view_repair(request, repair_pk):
@@ -138,6 +130,7 @@ def added_spparts(request):
 
 
 # Функционал калькулятора, работа с подгрузкой запчастей <select> из БД
+@login_required
 def calc(request):
     # extra=1 означает, что изначально будет одна пустая строка
     RepairFormSet = formset_factory(CalcForm, extra=2)

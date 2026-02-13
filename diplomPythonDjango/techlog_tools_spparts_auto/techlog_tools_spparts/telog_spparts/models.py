@@ -27,7 +27,7 @@ class TelogSpparts(models.Model):
         return self.title
 
 
-# def get_default_user():
+# def get_default_user(): # - Если исп. default_user
 #     # Ищем пользователя 'deleted_user', если его нет — создаем
 #     user, created = User.objects.get_or_create(username='deleted_user')
 #     return user.pk
